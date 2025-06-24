@@ -4,7 +4,7 @@ Travelia is a demo monorepo project for searching flights, hotels and combined d
 
 ## טרווליה
 
-פרויקט לדוגמה המשלב פרונטאנד מבוסס React עם Tailwind ו־Vite לצד שרת Express. הקוד מותאם לפריסה ב־Vercel וב־GitHub Pages.
+פרויקט לדוגמה המשלב פרונטאנד מבוסס React עם Tailwind ו־Vite לצד שרת Express. הקוד מותאם לפריסה ב־Vercel וב־GitHub Pages. ניתן לבצע חיפוש טיסות ומלונות ולשלב לדילים מותאמים אישית.
 
 ## Project Structure
 
@@ -32,6 +32,13 @@ npm install
 # Backend
 cd ../backend
 npm install
+```
+
+To create a production build of the frontend run:
+
+```
+cd frontend
+npm run build
 ```
 
 ## Development
@@ -65,3 +72,17 @@ the build command to `npm start`.
 If you wish to deploy the static frontend to Vercel instead, use the `frontend`
 folder as the project root, keep the build command as `npm run build` and set
 the output directory to `dist`.
+
+## Features
+
+- Multilingual interface (Hebrew/English)
+- Flight and hotel search using the Travelpayouts API
+- Local deal builder combining flights and hotels
+- Basic blog and contact form
+
+## הפיצ'רים המרכזיים
+
+- תמיכה בעברית ובאנגלית
+- חיפוש טיסות ומלונות מול ממשק ה־API של Travelpayouts
+- יצירת דילים מקומיים משילוב טיסה ומלון
+- בלוג וטופס יצירת קשר בסיסיים
