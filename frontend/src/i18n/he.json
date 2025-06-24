@@ -1,3 +1,16 @@
 {
-  "welcome": "\u05d1\u05e8\u05d5\u05db\u05d9\u05dd \u05dcTravelia"
+  "welcome": "ברוכים הבאים לTravelia",
+  "appName": "Travelia",
+  "search": "חיפוש",
+  "flights": "טיסות",
+  "hotels": "מלונות",
+  "deals": "דילים",
+  "contact": "צור קשר",
+  "name": "שם",
+  "email": "אימייל",
+  "message": "הודעה",
+  "send": "שלח",
+  "noResults": "לא נמצאו תוצאות",
+  "loading": "טוען..."
 }
+

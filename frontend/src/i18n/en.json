@@ -1,3 +1,16 @@
 {
-  "welcome": "Welcome to Travelia"
+  "welcome": "Welcome to Travelia",
+  "appName": "Travelia",
+  "search": "Search",
+  "flights": "Flights",
+  "hotels": "Hotels",
+  "deals": "Deals",
+  "contact": "Contact",
+  "name": "Name",
+  "email": "Email",
+  "message": "Message",
+  "send": "Send",
+  "noResults": "No results found",
+  "loading": "Loading..."
 }
+
