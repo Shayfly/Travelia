@@ -1,19 +1,11 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 
-/**
- * Reusable search bar for flights and hotels.
- *
- * @param {Object} props
- * @param {('flights'|'hotels')} [props.type='flights'] - preset field group
- * @param {Array} [props.fields] - custom field configuration
- * @param {Function} props.onSearch - callback invoked with form values
- * @param {string} [props.className] - additional wrapper classes
- */
-export default function SearchBar({ type = 'flights', fields, onSearch, className = '' }) {
+export default function SearchBar({ onSearch, className = '' }) {
   const t = useTranslation();
 
-  const defaultFields = {
+  // מבנה שדות גמיש לכל טאב
+  const fieldsConfig = {
     flights: [
       { name: 'from', type: 'text', label: t('from'), required: true },
       { name: 'to', type: 'text', label: t('to'), required: true },
@@ -30,62 +22,97 @@ export default function SearchBar({ type = 'flights', fields, onSearch, classNam
     ],
   };
 
-  const fieldsToUse = fields?.length ? fields : defaultFields[type] || [];
-
-  const [form, setForm] = useState(() => {
-    const init = {};
-    fieldsToUse.forEach((f) => {
-      init[f.name] = f.defaultValue || (f.type === 'number' ? 1 : '');
-    });
-    return init;
+  const [tab, setTab] = useState('flights');
+  const [form, setForm] = useState({
+    flights: Object.fromEntries(fieldsConfig.flights.map(f => [f.name, f.type === 'number' ? 1 : ''])),
+    hotels: Object.fromEntries(fieldsConfig.hotels.map(f => [f.name, f.type === 'number' ? 1 : ''])),
   });
   const [errors, setErrors] = useState({});
 
+  const fields = fieldsConfig[tab];
+
+  // שינוי שדה
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [tab]: {
+        ...prev[tab],
+        [name]: type === 'number' ? Number(value) : value,
+      }
+    }));
   };
 
+  // ולידציה דינמית
   const validate = () => {
+    const curr = form[tab];
+    const currFields = fields;
     const newErrors = {};
-    fieldsToUse.forEach((f) => {
-      const val = form[f.name];
-      if (f.required && !val) newErrors[f.name] = `${f.label} required`;
-      if (f.type === 'number' && val && Number(val) < (f.min || 0)) {
-        newErrors[f.name] = `${f.label} ≥ ${f.min || 0}`;
-      }
+    currFields.forEach(f => {
+      const val = curr[f.name];
+      if (f.required && (!val || (f.type === 'text' && val.trim() === ''))) newErrors[f.name] = t('missing_fields');
+      if (f.type === 'number' && val && Number(val) < (f.min || 0)) newErrors[f.name] = t('invalid_numbers');
     });
+    // בדיקות ייחודיות לסוג
+    if (tab === 'flights' && curr.return && curr.depart && new Date(curr.return) < new Date(curr.depart))
+      newErrors['return'] = t('invalid_dates');
+    if (tab === 'hotels' && curr.check_out && curr.check_in && new Date(curr.check_out) <= new Date(curr.check_in))
+      newErrors['check_out'] = t('invalid_dates');
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSearch = () => {
-    if (validate() && onSearch) onSearch(form);
+  // חיפוש
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      onSearch?.({ type: tab, data: form[tab] });
+    }
   };
 
   return (
-    <div className={`space-y-2 ${className}`}>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-        {fieldsToUse.map((f) => (
-          <div key={f.name} className="flex flex-col">
-            <input
-              type={f.type}
-              name={f.name}
-              min={f.min}
-              value={form[f.name]}
-              onChange={handleChange}
-              placeholder={f.label}
-              className="border p-2 w-full"
-            />
-            {errors[f.name] && (
-              <span className="text-red-600 text-sm">{errors[f.name]}</span>
-            )}
-          </div>
-        ))}
+    <div className={`space-y-4 ${className}`}>
+      {/* טאבים */}
+      <div className="flex">
+        <button
+          type="button"
+          className={`flex-1 p-2 ${tab === 'flights' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          onClick={() => setTab('flights')}
+        >
+          {t('flights')}
+        </button>
+        <button
+          type="button"
+          className={`flex-1 p-2 ${tab === 'hotels' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          onClick={() => setTab('hotels')}
+        >
+          {t('hotels')}
+        </button>
       </div>
-      <button className="bg-blue-600 text-white px-4 py-2" onClick={handleSearch}>
-        {t('search')}
-      </button>
+      {/* טופס דינמי */}
+      <form onSubmit={handleSearch} className="space-y-2">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+          {fields.map(f => (
+            <div key={f.name} className="flex flex-col">
+              <input
+                type={f.type}
+                name={f.name}
+                min={f.min}
+                value={form[tab][f.name]}
+                onChange={handleChange}
+                placeholder={f.label}
+                className="border p-2 w-full"
+              />
+              {errors[f.name] && (
+                <span className="text-red-600 text-sm">{errors[f.name]}</span>
+              )}
+            </div>
+          ))}
+        </div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2">
+          {tab === 'flights' ? t('search_flights') : t('search_hotels')}
+        </button>
+      </form>
     </div>
   );
 }

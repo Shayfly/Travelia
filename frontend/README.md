@@ -16,3 +16,18 @@ Assets in `src/assets` and `public` are placeholders. Replace `logo.svg`, `demo-
 
 The entry `index.html` lives in the `frontend` folder so it can be served
 correctly on GitHub Pages and Vercel.
+
+## Deployment
+
+### GitHub Pages
+
+1. Create a `.env` file in this folder and set `VITE_BASE_URL` to your
+   repository name, e.g. `/travelia/`.
+2. Run `npm run build` to generate the `dist` folder.
+3. Deploy the contents of `dist` to GitHub Pages or use the provided workflow.
+
+### Vercel
+
+1. Ensure `VITE_BASE_URL` is set to `/` (or leave it unset).
+2. In Vercel, set the project root to `frontend`, the build command to
+   `npm run build`, and the output directory to `dist`.
