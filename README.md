@@ -12,8 +12,15 @@ backend/    Node.js + Express API server
 
 ## Installation and Local Development
 
+codex/write-bilingual-readme.md-for-travelia-project
 1. Clone the repository and create `.env` files in both the project root and in `backend` based on `.env.example`.
 2. Install dependencies for each part:
+=======
+Create `.env` files in the root and backend folders based on `.env.example`. Include your Travelpayouts API key and any other secrets.
+For the frontend, you can set `VITE_BASE_URL` to control the base path used by
+Vite when building for production. This is useful when deploying to GitHub
+Pages.
+ main
 
 ```bash
 # Frontend
@@ -120,11 +127,30 @@ npm run build
 
 ### GitHub Pages
 
+ codex/write-bilingual-readme.md-for-travelia-project
 קובץ העבודה שבנתיב `.github/workflows/deploy.yml` בונה אוטומטית את הפרונטאנד ומעלה את `frontend/dist` ל־GitHub Pages בעת דחיפה ל־`main`.
 
 ### Vercel
 
 ב־`backend` קיים הקובץ `vercel.json` המאפשר פריסה פשוטה ל־Vercel. צרו פרויקט חדש כשהשורש הוא התיקייה `backend` והפקודת build היא `npm start`.
+=======
+The workflow in `.github/workflows/deploy.yml` automatically builds the React
+frontend and publishes the `frontend/dist` folder to **GitHub Pages** whenever
+changes are pushed to the `main` branch. No manual steps are required.
+Set `VITE_BASE_URL` in `frontend/.env` to `/your-repo-name/` so that asset
+paths resolve correctly when served from a subfolder.
+
+### Vercel
+
+The Express backend contains a `vercel.json` file so it can be deployed to
+Vercel. Create a Vercel project using the `backend` folder as the root and set
+the build command to `npm start`.
+
+If you wish to deploy the static frontend to Vercel instead, use the `frontend`
+folder as the project root, keep the build command as `npm run build` and set
+the output directory to `dist`. Ensure `VITE_BASE_URL` is `/` in `frontend/.env`
+so the site works correctly at the domain root.
+main
 
 ניתן גם לפרוס את הפרונטאנד הסטטי ל־Vercel עם התיקייה `frontend`, פקודת build `npm run build` ותיקיית פלט `dist`.
 
