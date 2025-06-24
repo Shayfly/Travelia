@@ -21,6 +21,9 @@ Images such as `logo.svg`, `demo-image.jpg`, and `favicon.ico` are simple placeh
 ## Environment Variables
 
 Create `.env` files in the root and backend folders based on `.env.example`. Include your Travelpayouts API key and any other secrets.
+For the frontend, you can set `VITE_BASE_URL` to control the base path used by
+Vite when building for production. This is useful when deploying to GitHub
+Pages.
 
 ## Installation
 
@@ -62,6 +65,8 @@ npm run dev
 The workflow in `.github/workflows/deploy.yml` automatically builds the React
 frontend and publishes the `frontend/dist` folder to **GitHub Pages** whenever
 changes are pushed to the `main` branch. No manual steps are required.
+Set `VITE_BASE_URL` in `frontend/.env` to `/your-repo-name/` so that asset
+paths resolve correctly when served from a subfolder.
 
 ### Vercel
 
@@ -71,7 +76,8 @@ the build command to `npm start`.
 
 If you wish to deploy the static frontend to Vercel instead, use the `frontend`
 folder as the project root, keep the build command as `npm run build` and set
-the output directory to `dist`.
+the output directory to `dist`. Ensure `VITE_BASE_URL` is `/` in `frontend/.env`
+so the site works correctly at the domain root.
 
 ## Features
 
