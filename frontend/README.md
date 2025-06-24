@@ -2,6 +2,10 @@
 
 React + Vite + Tailwind application for searching flights, hotels and deals.
 
+## פרונטאנד טרווליה
+
+אפליקציית דמו המבוססת על React עם Vite ו־Tailwind.
+
 ## Scripts
 
 - `npm run dev` - start development server

@@ -2,6 +2,10 @@
 
 Travelia is a demo monorepo project for searching flights, hotels and combined deals. It consists of a React frontend and an Express backend. The project is ready to be deployed to Vercel (backend) and GitHub Pages (frontend).
 
+## טרווליה
+
+פרויקט לדוגמה המשלב פרונטאנד מבוסס React עם Tailwind ו־Vite לצד שרת Express. הקוד מותאם לפריסה ב־Vercel וב־GitHub Pages.
+
 ## Project Structure
 
 ```
