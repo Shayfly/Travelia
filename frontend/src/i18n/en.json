@@ -26,5 +26,8 @@
   "add_deal": "Add Deal",
   "deals_list": "Your Deals",
   "hot_deals": "Hot Deals",
-  "blog_title": "Blog"
+  "blog_title": "Blog",
+  "blog_desc": "Travel tips and destination guides",
+  "read_more": "Read more",
+  "back": "Back"
 }
