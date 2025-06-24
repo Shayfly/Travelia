@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
-  const t = useTranslation();
+  const { t } = useTranslation();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
 

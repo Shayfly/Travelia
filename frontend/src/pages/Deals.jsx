@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 import { DealsContext } from '../contexts/DealsContext';
 
 export default function Deals() {
   const { deals } = useContext(DealsContext);
-  const t = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">{t('deals_list')}</h2>

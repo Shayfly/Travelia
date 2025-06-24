@@ -1,10 +1,8 @@
-import { useContext } from 'react';
-import { LanguageContext } from '../contexts/LanguageContext';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ onNavigate }) {
-  const { language, setLanguage } = useContext(LanguageContext);
-  const t = useTranslation();
+  const { t } = useTranslation();
   const pages = ['home', 'flights', 'hotels', 'deals', 'blog', 'contact'];
   return (
     <header className="p-4 bg-blue-600 text-white flex flex-wrap justify-between items-center gap-4">
@@ -18,14 +16,7 @@ export default function Header({ onNavigate }) {
           ))}
         </nav>
       </div>
-      <select
-        value={language}
-        onChange={(e) => setLanguage(e.target.value)}
-        className="text-black p-1 rounded"
-      >
-        <option value="he">HE</option>
-        <option value="en">EN</option>
-      </select>
+      <LanguageSwitcher />
     </header>
   );
 }

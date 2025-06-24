@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
 
 export default function Hotels() {
-  const t = useTranslation();
+  const { t } = useTranslation();
   const { addDeal } = useContext(DealsContext);
   const [form, setForm] = useState({ city: '', check_in: '', check_out: '', guests: 1, rooms: 1 });
   const [results, setResults] = useState([]);

@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import i18n from '../i18n';
 
 export const LanguageContext = createContext({
   language: 'he',
@@ -6,7 +7,19 @@ export const LanguageContext = createContext({
 });
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('he');
+  const [language, setLang] = useState(i18n.language || 'he');
+
+  const setLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLang(lng);
+  };
+
+  useEffect(() => {
+    document.documentElement.dir = i18n.dir();
+  }, [language]);
+
   const value = { language, setLanguage };
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
+  );
 }

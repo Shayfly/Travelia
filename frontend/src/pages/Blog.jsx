@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 
 const posts = [
   { title: 'Post 1', body: 'Lorem ipsum dolor sit amet.' },
@@ -8,7 +8,7 @@ const posts = [
 ];
 
 export default function Blog() {
-  const t = useTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     document.title = 'Travelia - Blog';
   }, []);
