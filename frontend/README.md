@@ -13,3 +13,6 @@ React + Vite + Tailwind application for searching flights, hotels and deals.
 - `npm run preview` - preview production build
 
 Assets in `src/assets` and `public` are placeholders. Replace `logo.svg`, `demo-image.jpg` and `favicon.ico` with your own files.
+
+The entry `index.html` lives in the `frontend` folder so it can be served
+correctly on GitHub Pages and Vercel.

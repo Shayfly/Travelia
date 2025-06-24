@@ -1,6 +1,6 @@
 # Travelia
 
-Travelia is a demo monorepo project for searching flights, hotels and combined deals. It consists of a React frontend and an Express backend. The project is ready to be deployed to Vercel (backend) and GitHub Pages (frontend).
+Travelia is a demo monorepo project for searching flights, hotels and combined deals. It consists of a React frontend and an Express backend. The project is configured to deploy the frontend to GitHub Pages and the backend to Vercel.
 
 ## טרווליה
 
@@ -50,4 +50,18 @@ npm run dev
 
 ## Deployment
 
-The backend is configured for Vercel using `vercel.json`. The frontend can be deployed to GitHub Pages by running `npm run build` in the `frontend` folder and pushing the contents of `frontend/dist` to the `gh-pages` branch.
+### GitHub Pages
+
+The workflow in `.github/workflows/deploy.yml` automatically builds the React
+frontend and publishes the `frontend/dist` folder to **GitHub Pages** whenever
+changes are pushed to the `main` branch. No manual steps are required.
+
+### Vercel
+
+The Express backend contains a `vercel.json` file so it can be deployed to
+Vercel. Create a Vercel project using the `backend` folder as the root and set
+the build command to `npm start`.
+
+If you wish to deploy the static frontend to Vercel instead, use the `frontend`
+folder as the project root, keep the build command as `npm run build` and set
+the output directory to `dist`.
