@@ -1,12 +1,12 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  return {
-    plugins: [react()],
-    // Use VITE_BASE_URL to control the base path in production.
-    // For GitHub Pages set it to "/your-repo-name/".
-    base: env.VITE_BASE_URL || '/',
-  };
+// https://vitejs.dev/config/
+// הגדרת base: שם הריפו שלך ב-GitHub Pages חייב להופיע כאן.
+// לדוג' אם כתובת האתר היא https://shayfly.github.io/Travelia/ 
+// ה-base חייב להיות '/Travelia/'
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/Travelia/',
 });
