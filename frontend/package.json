@@ -2,6 +2,7 @@
   "name": "travelia-frontend",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://<user>.github.io/Travelia",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

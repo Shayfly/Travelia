@@ -28,5 +28,10 @@
   "hot_deals": "Hot Deals",
   "blog_title": "Blog",
   "about_title": "About Page",
-  "not_found": "404 - Page Not Found"
+  "not_found": "404 - Page Not Found",
+  "search_flights": "Search Flights",
+  "search_hotels": "Search Hotels",
+  "missing_fields": "Please fill all fields",
+  "invalid_dates": "Check the dates",
+  "invalid_numbers": "Values must be positive"
 }
