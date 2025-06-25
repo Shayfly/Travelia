@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
-import SearchBar from '../components/SearchBar';
+import HeroSearchBar from '../components/HeroSearchBar';
 import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
@@ -68,7 +68,7 @@ export default function Home() {
       <SEO title="Travelia" description="Search flights and hotels" />
       <div className="p-4 space-y-6">
         <h2 className="text-2xl font-bold text-center">Travelia</h2>
-      <SearchBar onSearch={handleSearch} />
+      <HeroSearchBar onSearch={handleSearch} />
       <a
         href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
         target="_blank"

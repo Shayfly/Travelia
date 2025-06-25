@@ -1,3 +1,4 @@
+// Example usage: import HotelIcon from './HotelIcon';
 export default function HotelIcon({ className = "w-5 h-5" }) {
   return (
     <svg
