@@ -3,6 +3,7 @@ import useTranslation from '../hooks/useTranslation';
 import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
 import SEO from '../components/SEO';
+import HotelIcon from '../components/HotelIcon';
 
 export default function Hotels() {
   const t = useTranslation();
@@ -38,6 +39,24 @@ export default function Hotels() {
         <input className="border p-2" type="number" name="rooms" min="1" onChange={handleChange} placeholder={t('rooms')} />
       </div>
       <button className="bg-blue-600 text-white px-4 py-2" onClick={search}>{t('search')}</button>
+      <a
+        href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
+      >
+        <HotelIcon className="w-5 h-5" />
+        {t('find_hotels_trip')}
+      </a>
+      <iframe
+        src="https://www.trip.com/partners/ad/SB4181690?Allianceid=6645150&SID=227505580&trip_sub1="
+        style={{ width: '300px', height: '250px', border: 'none' }}
+        frameBorder="0"
+        scrolling="no"
+        id="SB4181690"
+        title="Trip.com Ad"
+        className="mx-auto my-4"
+      ></iframe>
       {error && <p className="text-red-600">{error}</p>}
       <ul className="space-y-2">
         {results.map((h, i) => (

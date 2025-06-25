@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import SearchBar from '../components/SearchBar';
+import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
 import SEO from '../components/SEO';
@@ -58,6 +59,24 @@ export default function Home() {
       <div className="p-4 space-y-6">
         <h2 className="text-2xl font-bold text-center">Travelia</h2>
       <SearchBar onSearch={handleSearch} />
+      <a
+        href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
+      >
+        <HotelIcon className="w-5 h-5" />
+        {t('find_hotels_trip')}
+      </a>
+      <iframe
+        src="https://www.trip.com/partners/ad/SB4181690?Allianceid=6645150&SID=227505580&trip_sub1="
+        style={{ width: '300px', height: '250px', border: 'none' }}
+        frameBorder="0"
+        scrolling="no"
+        id="SB4181690"
+        title="Trip.com Ad"
+        className="mx-auto my-4"
+      ></iframe>
       {loading && <p>{t('searching') || 'Searching...'}</p>}
       {error && <p className="text-red-600">{error}</p>}
       {type === 'flight' && results.length > 0 && (

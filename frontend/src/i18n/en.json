@@ -33,5 +33,6 @@
   "invalid_dates": "Check the dates",
   "invalid_numbers": "Values must be positive",
   "book": "Book",
-  "searching": "Searching..."
+  "searching": "Searching...",
+  "find_hotels_trip": "Find hotels on Trip.com"
 }
