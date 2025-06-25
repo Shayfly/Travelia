@@ -58,7 +58,7 @@ The Express backend includes `vercel.json` so it can be deployed to Vercel. You 
 
 ## Custom API Keys and Images
 
-Add your Travelpayouts API key and other secrets to the `.env` files. Replace the placeholder images in `frontend/public` or `frontend/src/assets` with your own assets.
+Add your Travelpayouts API key and other secrets to the `.env` files. The frontend reads `VITE_TRAVELPAYOUTS_API_KEY` and `VITE_TRAVELPAYOUTS_MARKER` to query the Travelpayouts API directly. Replace the placeholder images in `frontend/public` or `frontend/src/assets` with your own assets.
 
 ---
 
