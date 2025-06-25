@@ -4,7 +4,7 @@ import SearchBar from '../components/SearchBar';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
 import SEO from '../components/SEO';
-import { mapToIata } from '../utils/iataMap';
+import { mapToIata } from '../utils/iataMap.js';
 
 export default function Home() {
   const t = useTranslation();

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
-import { sendContact } from '../api/contact';
+import { sendContact } from '../api/contact.js';
 import SEO from '../components/SEO';
 
 export default function Contact() {

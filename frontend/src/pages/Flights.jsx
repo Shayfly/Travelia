@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
 import SEO from '../components/SEO';
-import { mapToIata } from '../utils/iataMap';
+import { mapToIata } from '../utils/iataMap.js';
 
 export default function Flights() {
   const t = useTranslation();
