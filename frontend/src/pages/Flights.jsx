@@ -24,13 +24,19 @@ export default function Flights() {
 
   const searchFlights = async (e) => {
     e.preventDefault && e.preventDefault();
+    const originCode = mapToIata(form.from) || form.from;
+    const destinationCode = mapToIata(form.to) || form.to;
+    if (!originCode || !destinationCode) {
+      setError('יש להזין יעד ומוצא תקינים');
+      return;
+    }
     setLoading(true);
     setError('');
     setResults([]);
     try {
       const params = {
-        origin: mapToIata(form.from),
-        destination: mapToIata(form.to),
+        origin: originCode,
+        destination: destinationCode,
         departure_at: form.depart,
         return_at: form.return,
         one_way: form.return ? 'false' : 'true',
@@ -66,6 +72,7 @@ export default function Flights() {
           <input
             className="border p-2 w-full"
             name="from"
+            value={form.from}
             onChange={handleChange}
             placeholder={t('from')}
             required
@@ -73,6 +80,7 @@ export default function Flights() {
           <input
             className="border p-2 w-full"
             name="to"
+            value={form.to}
             onChange={handleChange}
             placeholder={t('to')}
             required
@@ -81,6 +89,7 @@ export default function Flights() {
             className="border p-2 w-full"
             type="date"
             name="depart"
+            value={form.depart}
             onChange={handleChange}
             required
           />
@@ -88,6 +97,7 @@ export default function Flights() {
             className="border p-2 w-full"
             type="date"
             name="return"
+            value={form.return}
             onChange={handleChange}
           />
           <input
