@@ -35,4 +35,11 @@
   "book": "Book",
   "searching": "Searching...",
   "find_hotels_trip": "Find hotels on Trip.com"
+  ,
+  "cars": "Cars",
+  "pickup": "Pick up",
+  "dropoff": "Drop off",
+  "driver_age": "Driver age",
+  "search_cars": "Search Cars",
+  "car_results": "Car Results"
 }
