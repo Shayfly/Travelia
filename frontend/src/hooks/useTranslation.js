@@ -7,5 +7,11 @@ const resources = { en, he };
 
 export default function useTranslation() {
   const { language } = useContext(LanguageContext);
-  return (key) => resources[language][key] || key;
+  const translations = resources[language] || {};
+
+  function t(key) {
+    return translations[key] || key;
+  }
+
+  return t;
 }
