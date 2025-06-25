@@ -16,9 +16,17 @@ Sample Travelpayouts hotel response:
 }
 */
 
+const API_TOKEN = process.env.TRAVELPAYOUTS_API_KEY ||
+  '8349af28ce9d95c3ee1635cc7729cc09';
+const MARKER = process.env.TRAVELPAYOUTS_MARKER || '640704';
+
 export async function getHotels(params) {
-  const { data } = await axios.get('https://api.travelpayouts.com/v1/prices/hotel-offers', {
-    params: { ...params, token: process.env.TRAVELPAYOUTS_API_KEY },
-  });
+  const { data } = await axios.get(
+    'https://api.travelpayouts.com/v1/prices/hotel-offers',
+    {
+      params: { ...params, marker: MARKER },
+      headers: { 'X-Access-Token': API_TOKEN },
+    },
+  );
   return data;
 }

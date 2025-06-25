@@ -50,8 +50,18 @@ export default function Home() {
   };
 
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '');
+  const MARKER = '640704';
   const getFlightPrice = (f) => (f.price || f.value || 0);
-  const getFlightLink = (f) => f.link || f.deep_link;
+  const getFlightLink = (f) => {
+    const base = f.link || f.deep_link;
+    if (!base) return '';
+    return `${base}${base.includes('?') ? '&' : '?'}marker=${MARKER}`;
+  };
+  const getHotelLink = (h) => {
+    if (!h.link) return '';
+    const base = h.link;
+    return `${base}${base.includes('?') ? '&' : '?'}marker=${MARKER}`;
+  };
 
   return (
     <>
@@ -131,9 +141,9 @@ export default function Home() {
               </div>
               <div className="flex items-center mt-2 sm:mt-0 gap-4">
                 <span className="font-bold text-blue-600">${hotel.price || hotel.price_from}</span>
-                {hotel.link && (
+                {getHotelLink(hotel) && (
                   <a
-                    href={hotel.link}
+                    href={getHotelLink(hotel)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-green-600 text-white px-3 py-1 rounded"

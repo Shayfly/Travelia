@@ -17,10 +17,18 @@ Sample Travelpayouts flight response:
 }
 */
 
+const API_TOKEN = process.env.TRAVELPAYOUTS_API_KEY ||
+  '8349af28ce9d95c3ee1635cc7729cc09';
+const MARKER = process.env.TRAVELPAYOUTS_MARKER || '640704';
+
 export async function getFlights(params) {
-  const { data } = await axios.get('https://api.travelpayouts.com/v1/prices/monthly', {
-    params: { ...params, token: process.env.TRAVELPAYOUTS_API_KEY },
-  });
+  const { data } = await axios.get(
+    'https://api.travelpayouts.com/v1/prices/monthly',
+    {
+      params: { ...params, marker: MARKER },
+      headers: { 'X-Access-Token': API_TOKEN },
+    },
+  );
   return data;
 }
 
@@ -28,7 +36,8 @@ export async function searchFlights(params) {
   const { data } = await axios.get(
     'https://api.travelpayouts.com/aviasales/v3/prices_for_dates',
     {
-      params: { ...params, token: process.env.TRAVELPAYOUTS_API_KEY },
+      params: { ...params, marker: MARKER },
+      headers: { 'X-Access-Token': API_TOKEN },
     },
   );
   return data;
