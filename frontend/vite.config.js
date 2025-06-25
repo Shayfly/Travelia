@@ -13,5 +13,10 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     // Use VITE_BASE_URL from the environment or fall back to root ("/")
     base: env.VITE_BASE_URL || '/',
+    server: {
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
+    },
   };
 });

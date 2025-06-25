@@ -6,3 +6,13 @@ export async function getFlights(params) {
   });
   return data;
 }
+
+export async function searchFlights(params) {
+  const { data } = await axios.get(
+    'https://api.travelpayouts.com/aviasales/v3/prices_for_dates',
+    {
+      params: { ...params, token: process.env.TRAVELPAYOUTS_API_KEY },
+    },
+  );
+  return data;
+}

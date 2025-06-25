@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
-
-const API_URL = 'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
-const API_KEY = '8349af28ce9d95c3ee1635cc7729cc09';
+import { fetchFlights } from '../api/flights';
 
 export default function Flights() {
   const t = useTranslation();
@@ -28,7 +26,7 @@ export default function Flights() {
     setError('');
     setResults([]);
     try {
-      const params = new URLSearchParams({
+      const params = {
         origin: form.from,
         destination: form.to,
         departure_at: form.depart,
@@ -37,11 +35,8 @@ export default function Flights() {
         direct: 'false',
         sorting: 'price',
         limit: '30',
-        token: API_KEY,
-      });
-      const res = await fetch(`${API_URL}?${params.toString()}`);
-      if (!res.ok) throw new Error('Network error');
-      const data = await res.json();
+      };
+      const data = await fetchFlights(params);
       const flights = Array.isArray(data.data) ? data.data : [];
       if (!flights.length) {
         setError(t('flight_results') + ': 0');
