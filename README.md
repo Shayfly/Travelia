@@ -1,88 +1,120 @@
-# Travelia
+# Travelia / טרווליה
 
-Travelia is a demo monorepo project for searching flights, hotels and combined deals. It consists of a React frontend and an Express backend. The project is configured to deploy the frontend to GitHub Pages and the backend to Vercel.
+Demo travel site featuring a React + Vite + Tailwind frontend and an Express backend.
+The repository is ready for deployment of the frontend to **GitHub Pages** and the
+backend to **Vercel**.
 
-## טרווליה
+---
 
-פרויקט לדוגמה המשלב פרונטאנד מבוסס React עם Tailwind ו־Vite לצד שרת Express. הקוד מותאם לפריסה ב־Vercel וב־GitHub Pages. ניתן לבצע חיפוש טיסות ומלונות ולשלב לדילים מותאמים אישית.
+## English
 
-## Project Structure
+### Project structure
 
 ```
-frontend/   # React + Vite + Tailwind application
+frontend/   # React application
 backend/    # Node.js + Express API server
 .github/    # CI/CD workflow
 ```
 
-## Placeholder Assets
+### Environment variables
 
-Images such as `logo.svg`, `demo-image.jpg`, and `favicon.ico` are simple placeholders. Replace them with your own assets in `frontend/public` or `frontend/src/assets`.
+1. Copy `.env.example` in the project root to `.env`.
+2. Copy `backend/.env.example` to `backend/.env`.
+3. Put your **Travelpayouts API key** in both files under `TRAVELPAYOUTS_API_KEY`.
 
-## Environment Variables
+### Running locally
 
-Create `.env` files in the root and backend folders based on `.env.example`. Include your Travelpayouts API key and any other secrets.
-
-## Installation
-
-```
+```bash
 # Frontend
 cd frontend
 npm install
+npm run dev
 
 # Backend
 cd ../backend
 npm install
+npm run dev
 ```
 
-To create a production build of the frontend run:
+The backend will start on port `3000` by default and the frontend development
+server will proxy API requests to it.
 
-```
+### Building
+
+```bash
 cd frontend
 npm run build
 ```
 
-## Development
+The production build is created in `frontend/dist`.
 
-Run the frontend and backend separately:
+### Deployment
+
+#### GitHub Pages
+
+The workflow in `.github/workflows/deploy.yml` automatically builds the frontend
+and publishes `frontend/dist` to GitHub Pages whenever changes are pushed to the
+`main` branch.
+
+#### Vercel
+
+Deploy the Express backend by creating a Vercel project with the `backend` folder
+as the root and the build command `npm start`. If you wish to deploy the static
+frontend instead, use the `frontend` folder with `npm run build` and `dist` as the
+output directory.
+
+---
+
+## עברית
+
+### מבנה הפרויקט
 
 ```
-# Frontend
+frontend/   # אפליקציית React
+backend/    # שרת API מבוסס Express
+.github/    # הגדרות CI/CD
+```
+
+### משתני סביבה
+
+1. העתיקו את הקובץ `.env.example` לשם `.env` בתיקייה הראשית.
+2. העתיקו את `backend/.env.example` ל־`backend/.env`.
+3. הזינו את מפתח ה־API של **Travelpayouts** במשתנה `TRAVELPAYOUTS_API_KEY` בשני הקבצים.
+
+### הרצה מקומית
+
+```bash
+# פרונטאנד
 cd frontend
+npm install
 npm run dev
 
-# Backend
+# בקאנד
 cd ../backend
+npm install
 npm run dev
 ```
 
-## Deployment
+השרת פועל כברירת מחדל על פורט `3000` והפרונטאנד מנתב אליו את הקריאות ל־API.
 
-### GitHub Pages
+### בנייה
 
-The workflow in `.github/workflows/deploy.yml` automatically builds the React
-frontend and publishes the `frontend/dist` folder to **GitHub Pages** whenever
-changes are pushed to the `main` branch. No manual steps are required.
+```bash
+cd frontend
+npm run build
+```
 
-### Vercel
+תוצר הבנייה יופיע בתיקייה `frontend/dist`.
 
-The Express backend contains a `vercel.json` file so it can be deployed to
-Vercel. Create a Vercel project using the `backend` folder as the root and set
-the build command to `npm start`.
+### פריסה
 
-If you wish to deploy the static frontend to Vercel instead, use the `frontend`
-folder as the project root, keep the build command as `npm run build` and set
-the output directory to `dist`.
+#### GitHub Pages
 
-## Features
+פעולת GitHub Actions המוגדרת ב־`.github/workflows/deploy.yml` בונה את הפרונטאנד
+ומפרסמת את התיקייה `frontend/dist` ל־GitHub Pages בכל דחיפה לענף `main`.
 
-- Multilingual interface (Hebrew/English)
-- Flight and hotel search using the Travelpayouts API
-- Local deal builder combining flights and hotels
-- Basic blog and contact form
+#### Vercel
 
-## הפיצ'רים המרכזיים
-
-- תמיכה בעברית ובאנגלית
-- חיפוש טיסות ומלונות מול ממשק ה־API של Travelpayouts
-- יצירת דילים מקומיים משילוב טיסה ומלון
-- בלוג וטופס יצירת קשר בסיסיים
+לפריסה של שרת ה־Express הגדירו את תיקיית `backend` כשורש הפרויקט ב־Vercel
+והשתמשו בפקודת הבנייה `npm start`. לחלופין ניתן לפרוס את הפרונטאנד הסטטי על ידי
+שימוש בתיקיית `frontend` עם פקודת `npm run build` והגדרת תיקיית הפלט כ־`dist`.
