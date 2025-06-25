@@ -9,6 +9,7 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import { LanguageProvider, LanguageContext } from './contexts/LanguageContext';
 import { DealsProvider } from './contexts/DealsContext';
+import i18n from './i18n';
 
 const pages = {
   home: Home,
@@ -38,7 +39,7 @@ export default function App() {
 function InnerApp({ page, setPage }) {
   const { language } = useContext(LanguageContext);
   return (
-    <div className="flex flex-col min-h-screen" dir={language === 'he' ? 'rtl' : 'ltr'}>
+    <div className="flex flex-col min-h-screen" dir={i18n.dir(language)}>
       <Header onNavigate={setPage} />
       <main className="flex-1 p-4">
         <PageRenderer page={page} />

@@ -6,6 +6,7 @@ export default function Header({ onNavigate }) {
   const { language, setLanguage } = useContext(LanguageContext);
   const t = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+
   const pages = ['home', 'flights', 'hotels', 'deals', 'blog', 'contact'];
   const isRTL = language === 'he';
 

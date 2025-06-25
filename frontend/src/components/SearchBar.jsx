@@ -54,6 +54,7 @@ export default function SearchBar({ onSearch }) {
 
   return (
     <div className="space-y-4">
+      {/* טאבים */}
       <div className="flex">
         <button
           type="button"
@@ -70,6 +71,7 @@ export default function SearchBar({ onSearch }) {
           {t('hotels')}
         </button>
       </div>
+      {/* טופס חיפוש */}
       <form onSubmit={submit} className="space-y-2">
         {tab === 'flights' ? (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2">

@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 import { fetchFlights } from '../api/flights';
 import { DealsContext } from '../contexts/DealsContext';
 import { formatDate } from '../utils/formatDate';
 
 export default function Flights() {
-  const t = useTranslation();
+  const { t } = useTranslation();
   const { addDeal } = useContext(DealsContext);
   const [form, setForm] = useState({
     from: '',
