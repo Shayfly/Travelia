@@ -1,0 +1,8 @@
+{
+  "name": "Travelia",
+  "short_name": "Travelia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Search flights, hotels and deals"
+}
