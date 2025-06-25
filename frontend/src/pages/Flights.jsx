@@ -8,8 +8,8 @@ export default function Flights() {
   const t = useTranslation();
 
   const [form, setForm] = useState({
-    origin: '',
-    destination: '',
+    from: '',
+    to: '',
     depart: '',
     return: '',
     passengers: 1,
@@ -23,14 +23,14 @@ export default function Flights() {
   };
 
   const searchFlights = async (e) => {
-    e.preventDefault();
+    e.preventDefault && e.preventDefault();
     setLoading(true);
     setError('');
     setResults([]);
     try {
       const params = new URLSearchParams({
-        origin: form.origin,
-        destination: form.destination,
+        origin: form.from,
+        destination: form.to,
         departure_at: form.depart,
         return_at: form.return,
         one_way: form.return ? 'false' : 'true',
@@ -40,22 +40,22 @@ export default function Flights() {
         token: API_KEY,
       });
       const res = await fetch(`${API_URL}?${params.toString()}`);
-      if (!res.ok) throw new Error('network');
+      if (!res.ok) throw new Error('Network error');
       const data = await res.json();
       const flights = Array.isArray(data.data) ? data.data : [];
       if (!flights.length) {
-        setError('No results found.');
+        setError(t('flight_results') + ': 0');
       } else {
         setResults(flights);
       }
     } catch (err) {
-      setError('Failed to fetch flights.');
+      setError(t('failed_to_fetch_flights') || 'Failed to fetch flights.');
     } finally {
       setLoading(false);
     }
   };
 
-  const formatDate = (d) => (d ? new Date(d).toLocaleString() : '');
+  const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '');
   const getPrice = (f) => (f.price || f.value || 0) * form.passengers;
   const getLink = (f) => f.link || f.deep_link;
 
@@ -66,14 +66,14 @@ export default function Flights() {
         <div className="grid gap-2 md:grid-cols-5">
           <input
             className="border p-2 w-full"
-            name="origin"
+            name="from"
             onChange={handleChange}
             placeholder={t('from')}
             required
           />
           <input
             className="border p-2 w-full"
-            name="destination"
+            name="to"
             onChange={handleChange}
             placeholder={t('to')}
             required
@@ -105,12 +105,12 @@ export default function Flights() {
           className="bg-blue-600 text-white px-4 py-2"
           disabled={loading}
         >
-          {loading ? 'Loading...' : t('search')}
+          {loading ? t('searching') || 'Searching...' : t('search')}
         </button>
       </form>
       {error && <p className="text-red-600">{error}</p>}
-      {!loading && !error && results.length === 0 && (
-        <p>No results found.</p>
+      {(!loading && !error && results.length === 0) && (
+        <p>{t('flight_results')}: 0</p>
       )}
       {results.length > 0 && (
         <ul className="space-y-4">
@@ -135,7 +135,7 @@ export default function Flights() {
                     rel="noopener noreferrer"
                     className="bg-green-600 text-white px-3 py-1 rounded"
                   >
-                    Book
+                    {t('book') || 'Book'}
                   </a>
                 )}
               </div>
@@ -146,4 +146,3 @@ export default function Flights() {
     </div>
   );
 }
-
