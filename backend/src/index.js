@@ -4,6 +4,7 @@ import cors from 'cors';
 import flightsRouter from './routes/flights.js';
 import hotelsRouter from './routes/hotels.js';
 import dealsRouter from './routes/deals.js';
+import contactRouter from './routes/contact.js';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use('/api/flights', flightsRouter);
 app.use('/api/hotels', hotelsRouter);
 app.use('/api/deals', dealsRouter);
+app.use('/api/contact', contactRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

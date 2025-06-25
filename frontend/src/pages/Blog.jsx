@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
+import SEO from '../components/SEO';
 
 const posts = [
   { title: 'Post 1', body: 'Lorem ipsum dolor sit amet.' },
@@ -9,11 +9,10 @@ const posts = [
 
 export default function Blog() {
   const t = useTranslation();
-  useEffect(() => {
-    document.title = 'Travelia - Blog';
-  }, []);
   return (
-    <div className="space-y-4">
+    <>
+      <SEO title="Blog" description="Travelia blog" />
+      <div className="space-y-4">
       <h2 className="text-xl font-bold">{t('blog_title')}</h2>
       {posts.map((p, i) => (
         <article key={i} className="border p-2">
@@ -21,6 +20,7 @@ export default function Blog() {
           <p>{p.body}</p>
         </article>
       ))}
-    </div>
+      </div>
+    </>
   );
 }

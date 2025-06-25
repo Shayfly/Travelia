@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
+import SEO from '../components/SEO';
+import { mapToIata } from '../utils/iataMap';
 
 export default function Flights() {
   const t = useTranslation();
@@ -27,8 +29,8 @@ export default function Flights() {
     setResults([]);
     try {
       const params = {
-        origin: form.from,
-        destination: form.to,
+        origin: mapToIata(form.from),
+        destination: mapToIata(form.to),
         departure_at: form.depart,
         return_at: form.return,
         one_way: form.return ? 'false' : 'true',
@@ -55,7 +57,9 @@ export default function Flights() {
   const getLink = (f) => f.link || f.deep_link;
 
   return (
-    <div className="space-y-6">
+    <>
+      <SEO title={t('flights')} description="Search flights" />
+      <div className="space-y-6">
       <h2 className="text-xl font-bold">{t('flights')}</h2>
       <form onSubmit={searchFlights} className="space-y-4">
         <div className="grid gap-2 md:grid-cols-5">
@@ -138,6 +142,7 @@ export default function Flights() {
           ))}
         </ul>
       )}
-    </div>
+      </div>
+    </>
   );
 }

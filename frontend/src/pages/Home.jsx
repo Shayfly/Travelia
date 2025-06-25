@@ -3,6 +3,8 @@ import useTranslation from '../hooks/useTranslation';
 import SearchBar from '../components/SearchBar';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
+import SEO from '../components/SEO';
+import { mapToIata } from '../utils/iataMap';
 
 export default function Home() {
   const t = useTranslation();
@@ -19,8 +21,8 @@ export default function Home() {
     try {
       if (searchType === 'flight') {
         const params = {
-          origin: data.from,
-          destination: data.to,
+          origin: mapToIata(data.from),
+          destination: mapToIata(data.to),
           departure_at: data.depart,
           return_at: data.return,
           one_way: data.return ? 'false' : 'true',
@@ -51,8 +53,10 @@ export default function Home() {
   const getFlightLink = (f) => f.link || f.deep_link;
 
   return (
-    <div className="p-4 space-y-6">
-      <h2 className="text-2xl font-bold text-center">Travelia</h2>
+    <>
+      <SEO title="Travelia" description="Search flights and hotels" />
+      <div className="p-4 space-y-6">
+        <h2 className="text-2xl font-bold text-center">Travelia</h2>
       <SearchBar onSearch={handleSearch} />
       {loading && <p>{t('searching') || 'Searching...'}</p>}
       {error && <p className="text-red-600">{error}</p>}
@@ -124,5 +128,6 @@ export default function Home() {
         </ul>
       )}
     </div>
+    </>
   );
 }
