@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { LanguageContext } from '../contexts/LanguageContext';
-import useTranslation from '../hooks/useTranslation';
+import useTranslation from '../hooks/useTranslation2';
 
 export default function Header({ onNavigate }) {
   const { language, setLanguage } = useContext(LanguageContext);
