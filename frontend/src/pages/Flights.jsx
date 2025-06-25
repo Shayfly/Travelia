@@ -1,12 +1,12 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
-import { fetchFlights } from '../api/flights';
-import { DealsContext } from '../contexts/DealsContext';
-import { formatDate } from '../utils/formatDate';
+
+const API_URL = 'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
+const API_KEY = '8349af28ce9d95c3ee1635cc7729cc09';
 
 export default function Flights() {
   const t = useTranslation();
-  const { addDeal } = useContext(DealsContext);
+
   const [form, setForm] = useState({
     from: '',
     to: '',
@@ -22,82 +22,127 @@ export default function Flights() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const search = async () => {
+  const searchFlights = async (e) => {
+    e.preventDefault && e.preventDefault();
     setLoading(true);
     setError('');
     setResults([]);
     try {
-      const data = await fetchFlights(form);
-      if (data?.data?.length) {
-        setResults(data.data);
-      } else {
+      const params = new URLSearchParams({
+        origin: form.from,
+        destination: form.to,
+        departure_at: form.depart,
+        return_at: form.return,
+        one_way: form.return ? 'false' : 'true',
+        direct: 'false',
+        sorting: 'price',
+        limit: '30',
+        token: API_KEY,
+      });
+      const res = await fetch(`${API_URL}?${params.toString()}`);
+      if (!res.ok) throw new Error('Network error');
+      const data = await res.json();
+      const flights = Array.isArray(data.data) ? data.data : [];
+      if (!flights.length) {
         setError(t('flight_results') + ': 0');
+      } else {
+        setResults(flights);
       }
     } catch (err) {
-      setError(err.message || 'Error');
+      setError(t('failed_to_fetch_flights') || 'Failed to fetch flights.');
     } finally {
       setLoading(false);
     }
   };
 
+  const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '');
+  const getPrice = (f) => (f.price || f.value || 0) * form.passengers;
+  const getLink = (f) => f.link || f.deep_link;
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <h2 className="text-xl font-bold">{t('flights')}</h2>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-        <input className="border p-2" name="from" onChange={handleChange} placeholder={t('from')} />
-        <input className="border p-2" name="to" onChange={handleChange} placeholder={t('to')} />
-        <input className="border p-2" type="date" name="depart" onChange={handleChange} />
-        <input className="border p-2" type="date" name="return" onChange={handleChange} />
-        <input className="border p-2" type="number" name="passengers" min="1" onChange={handleChange} placeholder={t('passengers')} />
-      </div>
-      <button
-        className="bg-blue-600 text-white px-4 py-2"
-        onClick={search}
-        disabled={loading}
-      >
-        {loading ? '...' : t('search')}
-      </button>
+      <form onSubmit={searchFlights} className="space-y-4">
+        <div className="grid gap-2 md:grid-cols-5">
+          <input
+            className="border p-2 w-full"
+            name="from"
+            onChange={handleChange}
+            placeholder={t('from')}
+            required
+          />
+          <input
+            className="border p-2 w-full"
+            name="to"
+            onChange={handleChange}
+            placeholder={t('to')}
+            required
+          />
+          <input
+            className="border p-2 w-full"
+            type="date"
+            name="depart"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="border p-2 w-full"
+            type="date"
+            name="return"
+            onChange={handleChange}
+          />
+          <input
+            className="border p-2 w-full"
+            type="number"
+            name="passengers"
+            min="1"
+            value={form.passengers}
+            onChange={handleChange}
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2"
+          disabled={loading}
+        >
+          {loading ? t('searching') || 'Searching...' : t('search')}
+        </button>
+      </form>
       {error && <p className="text-red-600">{error}</p>}
-      <ul className="space-y-2">
-        {results.map((f, i) => (
-          <li
-            key={i}
-            className="border p-2 flex flex-col md:flex-row md:justify-between md:items-center gap-2"
-          >
-            <div>
-              <div className="font-semibold">
-                {f.airline} - {f.price}
+      {(!loading && !error && results.length === 0) && (
+        <p>{t('flight_results')}: 0</p>
+      )}
+      {results.length > 0 && (
+        <ul className="space-y-4">
+          {results.map((flight, i) => (
+            <li
+              key={i}
+              className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-center"
+            >
+              <div className="flex-1">
+                <p className="font-semibold">{flight.airline}</p>
+                <p className="text-sm text-gray-600">
+                  {formatDate(flight.departure_at || flight.depart_date)}
+                  {flight.return_at || flight.return_date ? ' - ' + formatDate(flight.return_at || flight.return_date) : ''}
+                </p>
               </div>
-              <div className="text-sm">
-                {formatDate(f.departure_at || f.depart_date)}
-                {f.return_at || f.return_date ? (
-                  <>
-                    {' '}\u2192 {formatDate(f.return_at || f.return_date)}
-                  </>
-                ) : null}
+              <div className="flex items-center mt-2 sm:mt-0 gap-4">
+                <span className="font-bold text-blue-600">${getPrice(flight)}</span>
+                {getLink(flight) && (
+                  <a
+                    href={getLink(flight)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-600 text-white px-3 py-1 rounded"
+                  >
+                    {t('book') || 'Book'}
+                  </a>
+                )}
               </div>
-            </div>
-            <div className="flex gap-2">
-              {f.link && (
-                <a
-                  href={f.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-600 text-white px-2"
-                >
-                  {t('book')}
-                </a>
-              )}
-              <button
-                className="bg-green-600 text-white px-2"
-                onClick={() => addDeal(f, null)}
-              >
-                {t('add_deal')}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
