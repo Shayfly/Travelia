@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="./favicon.ico" />
     <meta name="description" content="Travelia flights and hotels search" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Travelia" />
+    <meta property="og:description" content="Travel the world with the best deals" />
+    <meta property="og:image" content="/social.png" />
+    <meta property="og:type" content="website" />
     <title>Travelia</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="./src/main.jsx"></script>
+    <script>
+      const gaId = import.meta.env.VITE_GA_ID;
+      if (gaId) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(s);
+      }
+    </script>
   </body>
 </html>
