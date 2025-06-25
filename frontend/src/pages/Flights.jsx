@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
+import { toIataCode } from '../utils/airportCodes';
 
 export default function Flights() {
   const t = useTranslation();
@@ -26,9 +27,15 @@ export default function Flights() {
     setError('');
     setResults([]);
     try {
+      const originCode = toIataCode(form.from);
+      const destinationCode = toIataCode(form.to);
+      if (!originCode || !destinationCode) {
+        setError(t('unknown_location') || 'Unknown location');
+        return;
+      }
       const params = {
-        origin: form.from,
-        destination: form.to,
+        origin: originCode,
+        destination: destinationCode,
         departure_at: form.depart,
         return_at: form.return,
         one_way: form.return ? 'false' : 'true',
