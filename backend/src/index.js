@@ -4,6 +4,7 @@ import cors from 'cors';
 import flightsRouter from './routes/flights.js';
 import hotelsRouter from './routes/hotels.js';
 import dealsRouter from './routes/deals.js';
+import contactRouter from './routes/contact.js';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/flights', flightsRouter);
 app.use('/api/hotels', hotelsRouter);
+app.use('/api/contact', contactRouter);
 app.use('/api/deals', dealsRouter);
 
 const port = process.env.PORT || 3000;

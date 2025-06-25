@@ -17,6 +17,8 @@ codex/write-bilingual-readme.md-for-travelia-project
 2. Install dependencies for each part:
 =======
 Create `.env` files in the root and backend folders based on `.env.example`. Include your Travelpayouts API key and any other secrets.
+VITE_GA_ID=your_ga_id # optional analytics tracking
+
 For the frontend, you can set `VITE_BASE_URL` to control the base path used by
 Vite when building for production. This is useful when deploying to GitHub
 Pages.

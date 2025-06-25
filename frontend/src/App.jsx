@@ -7,6 +7,7 @@ import Hotels from './pages/Hotels';
 import Deals from './pages/Deals';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import { LanguageProvider, LanguageContext } from './contexts/LanguageContext';
 import { DealsProvider } from './contexts/DealsContext';
 
@@ -17,10 +18,11 @@ const pages = {
   deals: Deals,
   blog: Blog,
   contact: Contact,
+  notfound: NotFound,
 };
 
 function PageRenderer({ page }) {
-  const Component = pages[page] || Home;
+  const Component = pages[page] || NotFound;
   return <Component />;
 }
 

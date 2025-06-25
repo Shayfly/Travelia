@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
 
 export default function Flights() {
   const t = useTranslation();
+  useEffect(() => {
+    document.title = 'Travelia - Flights';
+  }, []);
 
   const [form, setForm] = useState({
     from: '',

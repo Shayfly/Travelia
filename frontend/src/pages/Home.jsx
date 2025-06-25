@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
 
 export default function Home() {
   const t = useTranslation();
+  useEffect(() => {
+    document.title = 'Travelia';
+  }, []);
   return (
     <div className="p-4 text-center space-y-4">
       <h2 className="text-2xl font-bold">Travelia</h2>

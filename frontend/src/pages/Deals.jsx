@@ -1,10 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { DealsContext } from '../contexts/DealsContext';
 
 export default function Deals() {
   const { deals } = useContext(DealsContext);
   const t = useTranslation();
+  useEffect(() => {
+    document.title = 'Travelia - Deals';
+  }, []);
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">{t('deals_list')}</h2>

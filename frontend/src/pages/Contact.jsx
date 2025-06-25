@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
+import { sendContact } from '../api/contact';
 
 export default function Contact() {
   const t = useTranslation();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    document.title = 'Travelia - Contact';
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setError('');
+    try {
+      await sendContact(form);
+      setSent(true);
+    } catch (err) {
+      setError(t('failed_to_send') || 'Failed to send');
+    }
   };
 
   return (
@@ -22,6 +33,7 @@ export default function Contact() {
           <input className="border p-2 w-full" name="name" onChange={handleChange} placeholder={t('name')} required />
           <input className="border p-2 w-full" name="email" type="email" onChange={handleChange} placeholder={t('email')} required />
           <textarea className="border p-2 w-full" name="message" onChange={handleChange} placeholder={t('message')} required />
+          {error && <p className="text-red-600">{error}</p>}
           <button className="bg-blue-600 text-white px-4 py-2" type="submit">{t('send')}</button>
         </form>
       )}

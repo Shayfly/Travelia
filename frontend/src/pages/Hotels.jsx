@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
@@ -6,6 +6,9 @@ import { DealsContext } from '../contexts/DealsContext';
 export default function Hotels() {
   const t = useTranslation();
   const { addDeal } = useContext(DealsContext);
+  useEffect(() => {
+    document.title = 'Travelia - Hotels';
+  }, []);
   const [form, setForm] = useState({ city: '', check_in: '', check_out: '', guests: 1, rooms: 1 });
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
@@ -20,7 +23,7 @@ export default function Hotels() {
       if (!data?.data?.length) setError(t('hotel_results') + ': 0');
       else setResults(data.data);
     } catch {
-      setError('Error');
+      setError(t('failed_to_fetch_hotels') || 'Failed to fetch hotels');
     }
   };
 

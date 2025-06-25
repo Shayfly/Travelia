@@ -32,4 +32,7 @@
   "missing_fields": "Please fill all fields",
   "invalid_dates": "Check the dates",
   "invalid_numbers": "Values must be positive"
+  "failed_to_send": "Failed to send message"
+  "failed_to_fetch_hotels": "Failed to fetch hotels"
+  "not_found": "Page not found"
 }
