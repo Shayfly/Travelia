@@ -3,6 +3,9 @@ import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
 import SEO from '../components/SEO';
 import { mapToIata } from '../utils/iataMap';
+import FlightIcon from '../components/FlightIcon';
+import CalendarIcon from '../components/CalendarIcon';
+import UserIcon from '../components/UserIcon';
 
 export default function Flights() {
   const t = useTranslation();
@@ -72,55 +75,70 @@ export default function Flights() {
       <SEO title={t('flights')} description="Search flights" />
       <div className="space-y-6">
       <h2 className="text-xl font-bold">{t('flights')}</h2>
-      <form onSubmit={searchFlights} className="space-y-4">
-        <div className="grid gap-2 md:grid-cols-5">
-          <input
-            className="border p-2 w-full"
-            name="from"
-            value={form.from}
-            onChange={handleChange}
-            placeholder={t('from')}
-            required
-          />
-          <input
-            className="border p-2 w-full"
-            name="to"
-            value={form.to}
-            onChange={handleChange}
-            placeholder={t('to')}
-            required
-          />
-          <input
-            className="border p-2 w-full"
-            type="date"
-            name="depart"
-            value={form.depart}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="border p-2 w-full"
-            type="date"
-            name="return"
-            value={form.return}
-            onChange={handleChange}
-          />
-          <input
-            className="border p-2 w-full"
-            type="number"
-            name="passengers"
-            min="1"
-            value={form.passengers}
-            onChange={handleChange}
-          />
+      <form onSubmit={searchFlights}>
+        <div className="flex flex-col md:flex-row gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-3xl mx-auto">
+          <div className="relative flex-1 w-full">
+            <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <input
+              className="w-full rounded-xl border px-3 py-2 pl-9"
+              name="from"
+              value={form.from}
+              onChange={handleChange}
+              placeholder={t('from')}
+              required
+            />
+          </div>
+          <div className="relative flex-1 w-full">
+            <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <input
+              className="w-full rounded-xl border px-3 py-2 pl-9"
+              name="to"
+              value={form.to}
+              onChange={handleChange}
+              placeholder={t('to')}
+              required
+            />
+          </div>
+          <div className="relative w-full">
+            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <input
+              className="w-full rounded-xl border px-3 py-2 pl-9"
+              type="date"
+              name="depart"
+              value={form.depart}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="relative w-full">
+            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <input
+              className="w-full rounded-xl border px-3 py-2 pl-9"
+              type="date"
+              name="return"
+              value={form.return}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative w-full md:w-24">
+            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <input
+              className="w-full rounded-xl border px-3 py-2 pl-9"
+              type="number"
+              name="passengers"
+              min="1"
+              value={form.passengers}
+              onChange={handleChange}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
+            disabled={loading}
+          >
+            {loading ? t('searching') || 'Searching...' : t('search')}
+          </button>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2"
-          disabled={loading}
-        >
-          {loading ? t('searching') || 'Searching...' : t('search')}
-        </button>
       </form>
       {error && <p className="text-red-600">{error}</p>}
       {(!loading && !error && results.length === 0) && (
