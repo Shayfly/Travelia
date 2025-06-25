@@ -60,7 +60,12 @@ export default function Flights() {
 
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '');
   const getPrice = (f) => (f.price || f.value || 0) * form.passengers;
-  const getLink = (f) => f.link || f.deep_link;
+  const MARKER = '640704';
+  const getLink = (f) => {
+    const base = f.link || f.deep_link;
+    if (!base) return '';
+    return `${base}${base.includes('?') ? '&' : '?'}marker=${MARKER}`;
+  };
 
   return (
     <>
