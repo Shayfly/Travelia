@@ -56,6 +56,16 @@ The workflow in `.github/workflows/deploy.yml` builds the frontend and publishes
 
 The Express backend includes `vercel.json` so it can be deployed to Vercel. You can also deploy the static frontend using the `frontend` folder with build command `npm run build` and output directory `dist`.
 
+## Environment Variables
+
+Copy `.env.example` to `.env` in the project root **and** in `backend` and fill in these variables:
+- `TRAVELPAYOUTS_API_KEY` – your Travelpayouts token
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` – SMTP credentials for the contact form
+- `CONTACT_TO` – address to receive contact form messages
+- `VITE_BASE_URL` – base path for the frontend (e.g. `/Travelia/` when deploying to GitHub Pages)
+- `VITE_GA_ID` – Google Analytics ID
+
+
 ## Custom API Keys and Images
 
 Add your Travelpayouts API key and other secrets to the `.env` files. Replace the placeholder images in `frontend/public` or `frontend/src/assets` with your own assets.
@@ -102,6 +112,16 @@ cd frontend && npm run build
 ## פריסה
 
 קובץ `.github/workflows/deploy.yml` בונה אוטומטית את הפרונטאנד ומעלה את `frontend/dist` ל־GitHub Pages בעת דחיפה ל־`main`. ניתן גם לפרוס את השרת ל־Vercel באמצעות הקובץ `vercel.json`.
+
+## משתני סביבה
+
+העתיקו את `.env.example` ל־`.env` בתיקיית השורש וב־`backend`.
+מלאו את הערכים הבאים:
+- `TRAVELPAYOUTS_API_KEY` – מפתח Travelpayouts
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` – פרטי SMTP לטופס יצירת קשר
+- `CONTACT_TO` – הכתובת שאליה יישלחו ההודעות
+- `VITE_BASE_URL` – בסיס הנתיב של הפרונטאנד (למשל `/Travelia/` ב־GitHub Pages)
+- `VITE_GA_ID` – מזהה Google Analytics
 
 ## הוספת מפתחות API ותמונות
 
