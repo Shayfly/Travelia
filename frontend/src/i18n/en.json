@@ -31,5 +31,6 @@
   "search_hotels": "Search Hotels",
   "missing_fields": "Please fill all fields",
   "invalid_dates": "Check the dates",
-  "invalid_numbers": "Values must be positive"
+  "invalid_numbers": "Values must be positive",
+  "book": "Book"
 }
