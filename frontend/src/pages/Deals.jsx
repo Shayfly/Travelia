@@ -1,13 +1,16 @@
 import { useContext } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { DealsContext } from '../contexts/DealsContext';
+import SEO from '../components/SEO';
 
 export default function Deals() {
   const { deals } = useContext(DealsContext);
   const t = useTranslation();
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">{t('deals_list')}</h2>
+    <>
+      <SEO title={t('deals')} description="Saved deals" />
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold">{t('deals_list')}</h2>
       <ul className="space-y-2">
         {deals.map((d, i) => (
           <li key={i} className="border p-2">
@@ -21,6 +24,7 @@ export default function Deals() {
         ))}
         {!deals.length && <li>{t('hot_deals')}</li>}
       </ul>
-    </div>
+      </div>
+    </>
   );
 }

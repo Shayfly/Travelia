@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
+import SEO from '../components/SEO';
 
 export default function Hotels() {
   const t = useTranslation();
@@ -25,8 +26,10 @@ export default function Hotels() {
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">{t('hotels')}</h2>
+    <>
+      <SEO title={t('hotels')} description="Search hotels" />
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold">{t('hotels')}</h2>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
         <input className="border p-2" name="city" onChange={handleChange} placeholder={t('hotel_city')} />
         <input className="border p-2" type="date" name="check_in" onChange={handleChange} />
@@ -44,6 +47,7 @@ export default function Hotels() {
           </li>
         ))}
       </ul>
-    </div>
+      </div>
+    </>
   );
 }
