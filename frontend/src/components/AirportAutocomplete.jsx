@@ -1,9 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
-import airports from '../assets/airports.json';
+import { useState, useEffect, useRef, useContext } from 'react';
 import useTranslation from '../hooks/useTranslation';
+import { LanguageContext } from '../contexts/LanguageContext';
 
-export default function AirportAutocomplete({ name, value, onChange, placeholder, className = 'w-full rounded-xl border px-3 py-2 pl-9' }) {
+export default function AirportAutocomplete({
+  name,
+  value,
+  onChange,
+  placeholder,
+  className = 'w-full rounded-xl border px-3 py-2 pl-9',
+}) {
   const t = useTranslation();
+  const { language } = useContext(LanguageContext);
   const [query, setQuery] = useState(value || '');
   const [results, setResults] = useState([]);
   const [active, setActive] = useState(-1);
@@ -15,22 +22,34 @@ export default function AirportAutocomplete({ name, value, onChange, placeholder
   }, [value]);
 
   useEffect(() => {
+    let ignore = false;
     if (query && query.length >= 2) {
-      const lower = query.toLowerCase();
-      const filtered = airports.filter(a =>
-        a.city.toLowerCase().includes(lower) ||
-        a.code.toLowerCase().includes(lower) ||
-        (a.name && a.name.toLowerCase().includes(lower)) ||
-        (a.hebrew_city && a.hebrew_city.includes(query))
-      ).slice(0, 10);
-      setResults(filtered);
-      setOpen(true);
+      const url =
+        `https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(
+          query,
+        )}&locale=${language}&types[]=city&types[]=airport&types[]=country`;
+      fetch(url)
+        .then((r) => r.json())
+        .then((data) => {
+          if (ignore) return;
+          setResults(Array.isArray(data) ? data.slice(0, 10) : []);
+          setOpen(true);
+        })
+        .catch(() => {
+          if (!ignore) setResults([]);
+        })
+        .finally(() => {
+          if (!ignore) setActive(-1);
+        });
     } else {
       setResults([]);
       setOpen(false);
+      setActive(-1);
     }
-    setActive(-1);
-  }, [query]);
+    return () => {
+      ignore = true;
+    };
+  }, [query, language]);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -48,7 +67,8 @@ export default function AirportAutocomplete({ name, value, onChange, placeholder
   };
 
   const select = (airport) => {
-    const val = `${airport.city} (${airport.code})`;
+    const city = airport.city_name || airport.city || airport.name || '';
+    const val = `${city} (${airport.code})`;
     setQuery(val);
     setOpen(false);
     onChange && onChange({ target: { name, value: val } });
@@ -90,8 +110,9 @@ export default function AirportAutocomplete({ name, value, onChange, placeholder
               onClick={() => select(a)}
               className={`p-2 cursor-pointer hover:bg-blue-50 ${idx === active ? 'bg-blue-100' : ''}`}
             >
-              <span className="font-semibold">{a.city}</span> ({a.code})
-              {a.name ? ` — ${a.name}` : ''}
+              <span className="font-semibold">{a.city_name || a.city || a.name}</span>
+              {a.code ? ` (${a.code})` : ''}
+              {a.name && a.city_name && a.name !== a.city_name ? ` — ${a.name}` : ''}
             </li>
           ))}
         </ul>
