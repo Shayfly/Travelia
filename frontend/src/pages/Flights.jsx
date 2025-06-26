@@ -3,6 +3,7 @@ import useTranslation from '../hooks/useTranslation';
 import { fetchFlights } from '../api/flights';
 import SEO from '../components/SEO';
 import { mapToIata } from '../utils/iataMap';
+import { formatPrice } from '../utils/formatPrice';
 import FlightIcon from '../components/FlightIcon';
 import CalendarIcon from '../components/CalendarIcon';
 import UserIcon from '../components/UserIcon';
@@ -158,7 +159,7 @@ export default function Flights() {
                 </p>
               </div>
               <div className="flex items-center mt-2 sm:mt-0 gap-4">
-                <span className="font-bold text-blue-600">${getPrice(flight)}</span>
+                <span className="font-bold text-blue-600">{formatPrice(getPrice(flight))}</span>
                 {getLink(flight) && (
                   <a
                     href={getLink(flight)}

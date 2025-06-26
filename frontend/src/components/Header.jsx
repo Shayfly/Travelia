@@ -1,19 +1,23 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
 
-export default function Header({ onNavigate }) {
+export default function Header() {
   const { language, setLanguage } = useContext(LanguageContext);
   const t = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const pages = ['home', 'flights', 'hotels', 'deals', 'blog', 'contact'];
+  const pages = [
+    { name: 'home', path: '/' },
+    { name: 'flights', path: '/flights' },
+    { name: 'hotels', path: '/hotels' },
+    { name: 'deals', path: '/deals' },
+    { name: 'blog', path: '/blog' },
+    { name: 'contact', path: '/contact' },
+  ];
   const isRTL = language === 'he';
 
   const toggleMenu = () => setMenuOpen((v) => !v);
-  const navigate = (p) => {
-    onNavigate(p);
-    setMenuOpen(false);
-  };
 
   return (
     <header className="bg-blue-600 text-white shadow">
@@ -48,13 +52,14 @@ export default function Header({ onNavigate }) {
           } w-full flex-col gap-2 mt-2 md:mt-0 md:flex md:w-auto ${isRTL ? 'md:flex-row-reverse' : 'md:flex-row'} md:items-center`}
         >
           {pages.map((p) => (
-            <button
-              key={p}
-              onClick={() => navigate(p)}
+            <Link
+              key={p.path}
+              to={p.path}
+              onClick={() => setMenuOpen(false)}
               className="px-3 py-1 hover:underline text-left md:text-center"
             >
-              {t(p)}
-            </button>
+              {t(p.name)}
+            </Link>
           ))}
         </nav>
         <select
