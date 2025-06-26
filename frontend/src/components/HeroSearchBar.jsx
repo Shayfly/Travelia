@@ -3,6 +3,7 @@ import useTranslation from '../hooks/useTranslation';
 import FlightIcon from './FlightIcon';
 import CalendarIcon from './CalendarIcon';
 import UserIcon from './UserIcon';
+import SwapIcon from './SwapIcon';
 import AirportAutocomplete from './AirportAutocomplete';
 
 export default function HeroSearchBar({ onSearch }) {
@@ -14,10 +15,22 @@ export default function HeroSearchBar({ onSearch }) {
     return: '',
     passengers: 1,
   });
+  const [tripType, setTripType] = useState('round');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const swapLocations = () => {
+    setForm((prev) => ({ ...prev, from: prev.to, to: prev.from }));
+  };
+
+  const selectTripType = (type) => {
+    setTripType(type);
+    if (type === 'oneWay') {
+      setForm((prev) => ({ ...prev, return: '' }));
+    }
   };
 
   const submit = (e) => {
@@ -28,6 +41,23 @@ export default function HeroSearchBar({ onSearch }) {
   return (
     <form onSubmit={submit} className="max-w-3xl mx-auto mt-4">
       <div className="flex flex-col md:flex-row gap-3 p-4 rounded-2xl bg-white shadow items-center rtl:md:flex-row-reverse">
+        <div className="flex gap-2 rtl:flex-row-reverse items-center">
+          <span className="font-semibold whitespace-nowrap">{t('trip_type')}</span>
+          <button
+            type="button"
+            onClick={() => selectTripType('round')}
+            className={`px-3 py-1 rounded-xl border ${tripType === 'round' ? 'bg-blue-600 text-white' : ''}`}
+          >
+            {t('round_trip')}
+          </button>
+          <button
+            type="button"
+            onClick={() => selectTripType('oneWay')}
+            className={`px-3 py-1 rounded-xl border ${tripType === 'oneWay' ? 'bg-blue-600 text-white' : ''}`}
+          >
+            {t('one_way')}
+          </button>
+        </div>
         <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
           <FlightIcon className="w-5 h-5 text-blue-500" />
           <AirportAutocomplete
@@ -38,6 +68,14 @@ export default function HeroSearchBar({ onSearch }) {
             className="flex-1 rounded-xl border px-3 py-2"
           />
         </div>
+        <button
+          type="button"
+          onClick={swapLocations}
+          className="p-2 rounded-full border hover:bg-gray-100"
+          aria-label={t('swap')}
+        >
+          <SwapIcon className="w-5 h-5 text-gray-600" />
+        </button>
         <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
           <FlightIcon className="w-5 h-5 text-blue-500" />
           <AirportAutocomplete
@@ -65,7 +103,8 @@ export default function HeroSearchBar({ onSearch }) {
             name="return"
             value={form.return}
             onChange={handleChange}
-            className="rounded-xl border px-3 py-2"
+            disabled={tripType === 'oneWay'}
+            className="rounded-xl border px-3 py-2 disabled:bg-gray-100"
           />
         </div>
         <div className="flex items-center gap-2 rtl:flex-row-reverse">
