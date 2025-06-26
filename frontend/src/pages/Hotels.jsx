@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
+import { LanguageContext } from '../contexts/LanguageContext';
 import SEO from '../components/SEO';
 import HotelIcon from '../components/HotelIcon';
 import CalendarIcon from '../components/CalendarIcon';
@@ -12,6 +13,7 @@ import { formatPrice } from '../utils/formatPrice';
 export default function Hotels() {
   const t = useTranslation();
   const { addDeal } = useContext(DealsContext);
+  const { language } = useContext(LanguageContext);
   const [form, setForm] = useState({ city: '', check_in: '', check_out: '', guests: 1, rooms: 1 });
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
@@ -24,7 +26,12 @@ export default function Hotels() {
       setLoading(true);
       setError('');
       setResults([]);
-      const data = await fetchHotels(form);
+      const params = {
+        ...form,
+        currency: language === 'he' ? 'ILS' : 'USD',
+        locale: language,
+      };
+      const data = await fetchHotels(params);
       if (!data?.data?.length) setError(t('hotel_results') + ': 0');
       else setResults(data.data);
     } catch {
@@ -129,10 +136,21 @@ export default function Hotels() {
             {h.photo && (
               <img src={h.photo} alt={h.name} className="w-24 h-16 object-cover rounded" />
             )}
-            <span className="flex-1">
-              {h.name} - {formatPrice(h.price || h.price_from)}
-            </span>
-            <button className="bg-green-600 text-white px-2" onClick={() => addDeal(null, h)}>{t('add_deal')}</button>
+            <div className="flex-1">
+              <p className="font-semibold">{h.name}</p>
+              {h.address && <p className="text-sm text-gray-600">{h.address}</p>}
+              <p>{formatPrice(h.price || h.price_from || h.min_price, language === 'he' ? 'ILS' : 'USD')}</p>
+            </div>
+            {h.link && (
+              <a
+                href={`${h.link}${h.link.includes('?') ? '&' : '?'}marker=640704`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-600 text-white px-3 py-1 rounded"
+              >
+                {t('book') || 'Book'}
+              </a>
+            )}
           </li>
         ))}
       </ul>
