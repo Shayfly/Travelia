@@ -158,7 +158,7 @@ export default function Flights() {
             </div>
             <button
               type="submit"
-              className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
+              className="bg-primary text-white font-bold rounded-xl px-6 py-2 hover:bg-primary-dark transition w-full md:w-auto"
               disabled={loading}
             >
               {loading ? t('searching') || 'Searching...' : t('search')}
@@ -187,7 +187,7 @@ export default function Flights() {
                   </p>
                 </div>
                 <div className="flex items-center mt-2 sm:mt-0 gap-4">
-                  <span className="font-bold text-blue-600">
+                  <span className="font-bold text-primary">
                     {formatPrice(getPrice(flight))}
                   </span>
                   {getLink(flight) && (

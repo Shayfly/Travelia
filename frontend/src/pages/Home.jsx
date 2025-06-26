@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import HeroSearchBar from '../components/HeroSearchBar';
-import logo from '../assets/Travelia_Logo.png';
+// Logo image lives under /assets when provided
+const logo = '/assets/Travelia_Logo.png';
 import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
@@ -82,7 +83,7 @@ export default function Home() {
         href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
+        className="bg-primary text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
       >
         <HotelIcon className="w-5 h-5" />
         {t('find_hotels_trip')}
@@ -120,7 +121,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex items-center mt-2 sm:mt-0 gap-4">
-                <span className="font-bold text-blue-600">${getFlightPrice(flight)}</span>
+                <span className="font-bold text-primary">${getFlightPrice(flight)}</span>
                 {getFlightLink(flight) && (
                   <a
                     href={getFlightLink(flight)}
@@ -153,7 +154,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-center mt-2 sm:mt-0 gap-4">
-                <span className="font-bold text-blue-600">${hotel.price || hotel.price_from}</span>
+                <span className="font-bold text-primary">${hotel.price || hotel.price_from}</span>
                 {getHotelLink(hotel) && (
                   <a
                     href={getHotelLink(hotel)}

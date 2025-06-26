@@ -47,14 +47,14 @@ export default function HeroSearchBar({ onSearch }) {
           <button
             type="button"
             onClick={() => selectTripType('round')}
-            className={`px-3 py-1 rounded-xl border ${tripType === 'round' ? 'bg-blue-600 text-white' : ''}`}
+            className={`px-3 py-1 rounded-xl border ${tripType === 'round' ? 'bg-primary text-white' : ''}`}
           >
             {t('round_trip')}
           </button>
           <button
             type="button"
             onClick={() => selectTripType('oneWay')}
-            className={`px-3 py-1 rounded-xl border ${tripType === 'oneWay' ? 'bg-blue-600 text-white' : ''}`}
+            className={`px-3 py-1 rounded-xl border ${tripType === 'oneWay' ? 'bg-primary text-white' : ''}`}
           >
             {t('one_way')}
           </button>
@@ -120,7 +120,7 @@ export default function HeroSearchBar({ onSearch }) {
           />
         </div>
         <button
-          className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
+          className="bg-gradient-to-r from-primary-light to-primary-dark shadow-xl hover:from-primary text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
           type="submit"
         >
           <SearchIcon className="w-5 h-5" />

@@ -2,7 +2,8 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
-import TraveliaLogo from '../assets/Travelia_Logo.png';
+// Logo will be provided under /assets
+const TraveliaLogo = '/assets/Travelia_Logo.png';
 
 export default function Header() {
   const { language, setLanguage } = useContext(LanguageContext);
@@ -21,7 +22,7 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen((v) => !v);
 
   return (
-    <header className="bg-blue-600 text-white shadow">
+    <header className="bg-primary text-white shadow">
       <div
         className={`container mx-auto flex flex-wrap items-center justify-between p-4 ${isRTL ? 'md:flex-row-reverse' : ''}`}
       >

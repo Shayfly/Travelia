@@ -134,7 +134,7 @@ export default function Hotels() {
           </div>
           <button
             type="submit"
-            className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
+            className="bg-primary text-white font-bold rounded-xl px-6 py-2 hover:bg-primary-dark transition w-full md:w-auto"
             disabled={loading}
           >
             {loading ? t('searching') || 'Searching...' : t('search')}
@@ -145,7 +145,7 @@ export default function Hotels() {
         href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
+        className="bg-primary text-white px-4 py-2 rounded flex items-center gap-2 justify-center my-4"
       >
         <HotelIcon className="w-5 h-5" />
         {t('find_hotels_trip')}
