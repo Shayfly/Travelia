@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://example.com/Travelia/sitemap.xml

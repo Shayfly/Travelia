@@ -34,13 +34,22 @@
   "invalid_numbers": "Values must be positive",
   "book": "Book",
   "searching": "Searching...",
-  "find_hotels_trip": "Find hotels on Trip.com"
-  ,
+  "find_hotels_trip": "Find hotels on Trip.com",
   "cars": "Cars",
   "pickup": "Pick up",
   "dropoff": "Drop off",
   "driver_age": "Driver age",
   "search_cars": "Search Cars",
   "car_results": "Car Results",
-  "no_results": "No results found"
+  "no_results": "No results found",
+  "not_found": "Page not found",
+  "back_home": "Back to Home",
+  "subject": "Subject",
+  "sent_success": "Message sent!",
+  "read_more": "Read more",
+  "price_low_high": "Price low-high",
+  "price_high_low": "Price high-low",
+  "direct": "Direct only"
+  ,"rating": "Rating"
+  ,"all": "All"
 }

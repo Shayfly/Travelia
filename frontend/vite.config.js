@@ -11,8 +11,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
-    // Use VITE_BASE_URL from the environment or fall back to root ("/")
-    base: env.VITE_BASE_URL || '/',
+    base: '/Travelia/',
     server: {
       proxy: {
         '/api': 'http://localhost:3000',

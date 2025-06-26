@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://example.com/Travelia/</loc>
+  </url>
+  <url>
+    <loc>https://example.com/Travelia/flights</loc>
+  </url>
+  <url>
+    <loc>https://example.com/Travelia/hotels</loc>
+  </url>
+  <url>
+    <loc>https://example.com/Travelia/deals</loc>
+  </url>
+  <url>
+    <loc>https://example.com/Travelia/blog</loc>
+  </url>
+  <url>
+    <loc>https://example.com/Travelia/contact</loc>
   </url>
 </urlset>

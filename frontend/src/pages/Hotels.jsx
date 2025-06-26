@@ -18,6 +18,8 @@ export default function Hotels() {
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [minRating, setMinRating] = useState(0);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -130,8 +132,31 @@ export default function Hotels() {
         className="mx-auto my-4"
       ></iframe>
       {error && <p className="text-red-600">{error}</p>}
+      {results.length > 0 && (
+        <div className="flex items-center gap-4 my-2">
+          <label className="flex items-center gap-2">
+            <span>{t('rating') || 'Rating'}</span>
+            <select value={minRating} onChange={(e) => setMinRating(Number(e.target.value))} className="border p-1 rounded">
+              <option value="0">{t('all') || 'All'}</option>
+              <option value="4">4+</option>
+              <option value="5">5</option>
+            </select>
+          </label>
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} className="border p-1 rounded">
+            <option value="asc">{t('price_low_high') || 'Price ↑'}</option>
+            <option value="desc">{t('price_high_low') || 'Price ↓'}</option>
+          </select>
+        </div>
+      )}
       <ul className="space-y-2">
-        {results.map((h, i) => (
+        {results
+          .filter((h) => h.rating === undefined || h.rating >= minRating)
+          .sort((a, b) =>
+            sortOrder === 'asc'
+              ? (a.price || a.price_from || 0) - (b.price || b.price_from || 0)
+              : (b.price || b.price_from || 0) - (a.price || a.price_from || 0)
+          )
+          .map((h, i) => (
           <li key={i} className="border p-2 flex justify-between items-center gap-4">
             {h.photo && (
               <img src={h.photo} alt={h.name} className="w-24 h-16 object-cover rounded" />

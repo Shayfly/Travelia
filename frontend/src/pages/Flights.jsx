@@ -22,6 +22,8 @@ export default function Flights() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [directOnly, setDirectOnly] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -145,8 +147,26 @@ export default function Flights() {
         <p>{t('flight_results')}: 0</p>
       )}
       {results.length > 0 && (
+        <>
+        <div className="flex items-center gap-4 my-2">
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={directOnly} onChange={(e) => setDirectOnly(e.target.checked)} />
+            <span>{t('direct') || 'Direct only'}</span>
+          </label>
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} className="border p-1 rounded">
+            <option value="asc">{t('price_low_high') || 'Price ↑'}</option>
+            <option value="desc">{t('price_high_low') || 'Price ↓'}</option>
+          </select>
+        </div>
         <ul className="space-y-4">
-          {results.map((flight, i) => (
+          {results
+            .filter((f) => !directOnly || f.number_of_changes === 0)
+            .sort((a, b) =>
+              sortOrder === 'asc'
+                ? getPrice(a) - getPrice(b)
+                : getPrice(b) - getPrice(a)
+            )
+            .map((flight, i) => (
             <li
               key={i}
               className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-center"
@@ -174,6 +194,7 @@ export default function Flights() {
             </li>
           ))}
         </ul>
+        </>
       )}
       </div>
     </>
