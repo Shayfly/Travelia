@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import FlightIcon from './FlightIcon';
+import HotelIcon from './HotelIcon';
 import CalendarIcon from './CalendarIcon';
 import UserIcon from './UserIcon';
 import SwapIcon from './SwapIcon';
@@ -10,36 +11,50 @@ import CityAutocomplete from './CityAutocomplete';
 
 export default function HeroSearchBar({ onSearch, type = 'flight', showTripType = true }) {
   const t = useTranslation();
-  const [form, setForm] = useState(
-    type === 'hotel'
-      ? { city: '', check_in: '', check_out: '', guests: 1, rooms: 1 }
-      : { from: '', to: '', depart: '', return: '', passengers: 1 }
-  );
+  const [flightForm, setFlightForm] = useState({
+    from: '',
+    to: '',
+    depart: '',
+    return: '',
+    passengers: 1,
+  });
+  const [hotelForm, setHotelForm] = useState({
+    city: '',
+    check_in: '',
+    check_out: '',
+    guests: 1,
+    rooms: 1,
+  });
   const [tripType, setTripType] = useState('round');
 
-  const handleChange = (e) => {
+  const handleFlightChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setFlightForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleHotelChange = (e) => {
+    const { name, value } = e.target;
+    setHotelForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const swapLocations = () => {
-    setForm((prev) => ({ ...prev, from: prev.to, to: prev.from }));
+    setFlightForm((prev) => ({ ...prev, from: prev.to, to: prev.from }));
   };
 
   const selectTripType = (type) => {
     setTripType(type);
     if (type === 'oneWay') {
-      setForm((prev) => ({ ...prev, return: '' }));
+      setFlightForm((prev) => ({ ...prev, return: '' }));
     }
   };
 
   const submit = (e) => {
     e.preventDefault();
-    const payload = { ...form };
-    if (type === 'flight' && tripType === 'oneWay') {
-      payload.return = '';
-    }
-    if (onSearch) onSearch({ type, data: payload });
+    if (onSearch)
+      onSearch({
+        type,
+        data: type === 'flight' ? flightForm : hotelForm,
+      });
   };
 
   return (
@@ -51,14 +66,14 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
             <button
               type="button"
               onClick={() => selectTripType('round')}
-              className={`px-3 py-1 rounded-xl border ${tripType === 'round' ? 'bg-blue-600 text-white' : ''}`}
+              className={`px-3 py-1 rounded-xl border ${tripType === 'round' ? 'bg-primary text-white' : ''}`}
             >
               {t('round_trip')}
             </button>
             <button
               type="button"
               onClick={() => selectTripType('oneWay')}
-              className={`px-3 py-1 rounded-xl border ${tripType === 'oneWay' ? 'bg-blue-600 text-white' : ''}`}
+              className={`px-3 py-1 rounded-xl border ${tripType === 'oneWay' ? 'bg-primary text-white' : ''}`}
             >
               {t('one_way')}
             </button>
@@ -71,8 +86,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
               <FlightIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <AirportAutocomplete
                 name="from"
-                value={form.from}
-                onChange={handleChange}
+                value={flightForm.from}
+                onChange={handleFlightChange}
                 placeholder={t('from_placeholder')}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
@@ -89,8 +104,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
               <FlightIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <AirportAutocomplete
                 name="to"
-                value={form.to}
-                onChange={handleChange}
+                value={flightForm.to}
+                onChange={handleFlightChange}
                 placeholder={t('to_placeholder')}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
@@ -101,8 +116,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
                 type="date"
                 name="depart"
                 min={new Date().toISOString().split('T')[0]}
-                value={form.depart}
-                onChange={handleChange}
+                value={flightForm.depart}
+                onChange={handleFlightChange}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -111,9 +126,9 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
               <input
                 type="date"
                 name="return"
-                min={form.depart || new Date().toISOString().split('T')[0]}
-                value={form.return}
-                onChange={handleChange}
+                min={flightForm.depart || new Date().toISOString().split('T')[0]}
+                value={flightForm.return}
+                onChange={handleFlightChange}
                 disabled={tripType === 'oneWay'}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9 disabled:bg-gray-100"
               />
@@ -124,8 +139,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
                 type="number"
                 name="passengers"
                 min="1"
-                value={form.passengers}
-                onChange={handleChange}
+                value={flightForm.passengers}
+                onChange={handleFlightChange}
                 className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -133,11 +148,10 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
         ) : (
           <>
             <div className="flex items-center relative">
-              <FlightIcon className="hidden" />
               <CityAutocomplete
                 name="city"
-                value={form.city}
-                onChange={handleChange}
+                value={hotelForm.city}
+                onChange={handleHotelChange}
                 placeholder={`${t('hotel_city')} (Paris)`}
                 className="w-full rounded-xl border px-3 py-2"
               />
@@ -148,8 +162,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
                 type="date"
                 name="check_in"
                 min={new Date().toISOString().split('T')[0]}
-                value={form.check_in}
-                onChange={handleChange}
+                value={hotelForm.check_in}
+                onChange={handleHotelChange}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -158,9 +172,9 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
               <input
                 type="date"
                 name="check_out"
-                min={form.check_in || new Date().toISOString().split('T')[0]}
-                value={form.check_out}
-                onChange={handleChange}
+                min={hotelForm.check_in || new Date().toISOString().split('T')[0]}
+                value={hotelForm.check_out}
+                onChange={handleHotelChange}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -170,8 +184,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
                 type="number"
                 name="guests"
                 min="1"
-                value={form.guests}
-                onChange={handleChange}
+                value={hotelForm.guests}
+                onChange={handleHotelChange}
                 className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -181,8 +195,8 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
                 type="number"
                 name="rooms"
                 min="1"
-                value={form.rooms}
-                onChange={handleChange}
+                value={hotelForm.rooms}
+                onChange={handleHotelChange}
                 className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -190,7 +204,7 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
         )}
 
         <button
-          className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
+          className="bg-gradient-to-r from-primary-light to-primary-dark shadow-xl hover:from-primary text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
           type="submit"
         >
           <SearchIcon className="w-5 h-5" />

@@ -20,7 +20,7 @@ export default function Flights() {
     setPassengers(Number(data.passengers) || 1);
 
     if (!originCode || !destinationCode) {
-      setError('יש להזין יעד ומוצא תקינים');
+      setError(t('invalid_airports') || 'יש להזין מוצא ויעד תקינים');
       return;
     }
 
@@ -39,8 +39,8 @@ export default function Flights() {
 
       console.log('📦 API Params:', params);
 
-      const data = await fetchFlights(params);
-      const flights = Array.isArray(data.data) ? data.data : [];
+      const response = await fetchFlights(params);
+      const flights = Array.isArray(response.data) ? response.data : [];
 
       if (!flights.length) {
         setError(t('flight_results') + ': 0');
@@ -48,6 +48,7 @@ export default function Flights() {
         setResults(flights);
       }
     } catch (err) {
+      console.error(err);
       setError(t('failed_to_fetch_flights') || 'Failed to fetch flights.');
     } finally {
       setLoading(false);
@@ -68,12 +69,15 @@ export default function Flights() {
       <SEO title={t('flights')} description="Search flights" />
       <div className="space-y-6 overflow-hidden max-w-screen md:max-w-7xl mx-auto">
         <h2 className="text-xl font-bold">{t('flights')}</h2>
-        <HeroSearchBar type="flight" showTripType={false} onSearch={searchFlights} />
+
+        <HeroSearchBar type="flight" showTripType={true} onSearch={searchFlights} />
 
         {error && <p className="text-red-600">{error}</p>}
+
         {(!loading && !error && results.length === 0) && (
           <p>{t('flight_results')}: 0</p>
         )}
+
         {results.length > 0 && (
           <ul className="space-y-4">
             {results.map((flight, i) => (
@@ -91,7 +95,7 @@ export default function Flights() {
                   </p>
                 </div>
                 <div className="flex items-center mt-2 sm:mt-0 gap-4">
-                  <span className="font-bold text-blue-600">
+                  <span className="font-bold text-primary">
                     {formatPrice(getPrice(flight))}
                   </span>
                   {getLink(flight) && (

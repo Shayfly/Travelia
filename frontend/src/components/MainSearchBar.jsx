@@ -60,7 +60,7 @@ export default function MainSearchBar({ onSearch }) {
             type="button"
             onClick={() => setActiveTab('flights')}
             className={`px-4 py-1 rounded-full font-medium transition-all duration-300 ease-in-out ${
-              activeTab === 'flights' ? 'bg-blue-600 text-white' : 'bg-gray-100'
+              activeTab === 'flights' ? 'bg-primary text-white' : 'bg-gray-100'
             }`}
           >
             {t('flights')}
@@ -69,7 +69,7 @@ export default function MainSearchBar({ onSearch }) {
             type="button"
             onClick={() => setActiveTab('hotels')}
             className={`px-4 py-1 rounded-full font-medium transition-all duration-300 ease-in-out ${
-              activeTab === 'hotels' ? 'bg-blue-600 text-white' : 'bg-gray-100'
+              activeTab === 'hotels' ? 'bg-primary text-white' : 'bg-gray-100'
             }`}
           >
             {t('hotels')}
@@ -140,7 +140,7 @@ export default function MainSearchBar({ onSearch }) {
               />
             </div>
             <button
-              className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
+              className="bg-gradient-to-r from-primary-light to-primary-dark shadow-xl hover:from-primary text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
               type="submit"
             >
               <SearchIcon className="w-5 h-5" />
@@ -203,7 +203,7 @@ export default function MainSearchBar({ onSearch }) {
               />
             </div>
             <button
-              className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
+              className="bg-gradient-to-r from-primary-light to-primary-dark shadow-xl hover:from-primary text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
               type="submit"
             >
               <SearchIcon className="w-5 h-5" />
