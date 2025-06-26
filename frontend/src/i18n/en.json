@@ -41,5 +41,6 @@
   "dropoff": "Drop off",
   "driver_age": "Driver age",
   "search_cars": "Search Cars",
-  "car_results": "Car Results"
+  "car_results": "Car Results",
+  "no_results": "No results found"
 }
