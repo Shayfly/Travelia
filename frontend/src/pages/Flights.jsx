@@ -79,10 +79,10 @@ export default function Flights() {
   return (
     <>
       <SEO title={t('flights')} description="Search flights" />
-      <div className="space-y-6">
+      <div className="space-y-6 overflow-x-hidden">
         <h2 className="text-xl font-bold">{t('flights')}</h2>
         <form onSubmit={searchFlights}>
-          <div className="flex flex-col md:flex-row gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row flex-wrap gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-full md:max-w-3xl mx-auto">
             <div className="relative flex-1 w-full">
               <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <AirportAutocomplete
@@ -103,26 +103,38 @@ export default function Flights() {
                 placeholder={`${t('to')} (LHR)`}
               />
             </div>
-            <div className="relative w-full">
-              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="date"
-                name="depart"
-                value={form.depart}
-                onChange={handleChange}
-                required
-              />
+            <div className="w-full">
+              <label className="block text-sm font-medium text-gray-700">
+                {t('depart')}
+              </label>
+              <div className="relative">
+                <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  className="w-full rounded-xl border px-3 py-2 pl-9"
+                  type="date"
+                  name="depart"
+                  min={new Date().toISOString().split('T')[0]}
+                  value={form.depart}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className="relative w-full">
-              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="date"
-                name="return"
-                value={form.return}
-                onChange={handleChange}
-              />
+            <div className="w-full">
+              <label className="block text-sm font-medium text-gray-700">
+                {t('return')}
+              </label>
+              <div className="relative">
+                <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  className="w-full rounded-xl border px-3 py-2 pl-9"
+                  type="date"
+                  name="return"
+                  min={form.depart}
+                  value={form.return}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <div className="relative w-full md:w-24">
               <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
