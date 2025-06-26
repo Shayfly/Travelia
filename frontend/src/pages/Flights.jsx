@@ -83,25 +83,31 @@ export default function Flights() {
         <h2 className="text-xl font-bold">{t('flights')}</h2>
         <form onSubmit={searchFlights}>
           <div className="flex flex-col md:flex-row flex-wrap gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-full md:max-w-3xl mx-auto">
-            <div className="relative flex-1 w-full">
-              <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <AirportAutocomplete
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                name="from"
-                value={form.from}
-                onChange={handleChange}
-                placeholder={`${t('from')} (TLV)`}
-              />
+            <div className="w-full md:flex-1">
+              <label className="block text-sm font-medium text-gray-700">{t('from')}</label>
+              <div className="relative">
+                <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <AirportAutocomplete
+                  className="w-full rounded-xl border px-3 py-2 pl-9"
+                  name="from"
+                  value={form.from}
+                  onChange={handleChange}
+                  placeholder={`${t('from')} (TLV)`}
+                />
+              </div>
             </div>
-            <div className="relative flex-1 w-full">
-              <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <AirportAutocomplete
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                name="to"
-                value={form.to}
-                onChange={handleChange}
-                placeholder={`${t('to')} (LHR)`}
-              />
+            <div className="w-full md:flex-1">
+              <label className="block text-sm font-medium text-gray-700">{t('to')}</label>
+              <div className="relative">
+                <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <AirportAutocomplete
+                  className="w-full rounded-xl border px-3 py-2 pl-9"
+                  name="to"
+                  value={form.to}
+                  onChange={handleChange}
+                  placeholder={`${t('to')} (LHR)`}
+                />
+              </div>
             </div>
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
@@ -136,16 +142,19 @@ export default function Flights() {
                 />
               </div>
             </div>
-            <div className="relative w-full md:w-24">
-              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="number"
-                name="passengers"
-                min="1"
-                value={form.passengers}
-                onChange={handleChange}
-              />
+            <div className="w-full md:w-24">
+              <label className="block text-sm font-medium text-gray-700">{t('passengers')}</label>
+              <div className="relative">
+                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  className="w-full rounded-xl border px-3 py-2 pl-9"
+                  type="number"
+                  name="passengers"
+                  min="1"
+                  value={form.passengers}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <button
               type="submit"

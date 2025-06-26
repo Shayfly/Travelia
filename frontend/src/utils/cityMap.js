@@ -1,14 +1,15 @@
-export const hebrewToCity = {
-  'תל אביב': 'Tel Aviv',
-  'חיפה': 'Haifa',
-  'אילת': 'Eilat',
-  'לונדון': 'London',
-  'ניו יורק': 'New York',
-};
+import airports from '../data/airports.json';
+
+export const hebrewToCity = airports.reduce((acc, a) => {
+  acc[a.city_he] = a.city_en;
+  acc[a.city_en.toLowerCase()] = a.city_en;
+  return acc;
+}, {});
 
 export function mapToCity(value) {
   const trimmed = value.trim();
   const match = trimmed.match(/\(([^)]+)\)$/);
   if (match) return match[1];
-  return hebrewToCity[trimmed] || trimmed;
+  const lower = trimmed.toLowerCase();
+  return hebrewToCity[trimmed] || hebrewToCity[lower] || trimmed;
 }
