@@ -9,6 +9,8 @@ import CalendarIcon from '../components/CalendarIcon';
 import UserIcon from '../components/UserIcon';
 import CityAutocomplete from '../components/CityAutocomplete';
 import { formatPrice } from '../utils/formatPrice';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { mapToCity } from '../utils/cityMap';
 
 export default function Hotels() {
   const t = useTranslation();
@@ -28,14 +30,21 @@ export default function Hotels() {
       setResults([]);
       const params = {
         ...form,
+        city: mapToCity(form.city),
         currency: language === 'he' ? 'ILS' : 'USD',
         locale: language,
       };
       const data = await fetchHotels(params);
-      if (!data?.data?.length) setError(t('hotel_results') + ': 0');
-      else setResults(data.data);
-    } catch {
-      setError('Error');
+      console.log('Hotel API response:', data);
+      if (data && data.error) {
+        setError(data.error);
+      } else if (Array.isArray(data?.data) && data.data.length) {
+        setResults(data.data);
+      } else {
+        setError(t('no_results') || 'No hotels found');
+      }
+    } catch (err) {
+      setError('Network error: ' + err.message);
     } finally {
       setLoading(false);
     }
@@ -129,7 +138,15 @@ export default function Hotels() {
         title="Trip.com Ad"
         className="mx-auto my-4"
       ></iframe>
+      {loading && (
+        <div className="flex justify-center my-4">
+          <LoadingSpinner />
+        </div>
+      )}
       {error && <p className="text-red-600">{error}</p>}
+      {!loading && !error && results.length === 0 && (
+        <p>{t('no_results') || 'No hotels found'}</p>
+      )}
       <ul className="space-y-2">
         {results.map((h, i) => (
           <li key={i} className="border p-2 flex justify-between items-center gap-4">
