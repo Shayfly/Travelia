@@ -6,6 +6,7 @@ import { mapToIata } from '../utils/iataMap';
 import FlightIcon from '../components/FlightIcon';
 import CalendarIcon from '../components/CalendarIcon';
 import UserIcon from '../components/UserIcon';
+import AirportAutocomplete from '../components/AirportAutocomplete';
 
 export default function Flights() {
   const t = useTranslation();
@@ -79,24 +80,22 @@ export default function Flights() {
         <div className="flex flex-col md:flex-row gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-3xl mx-auto">
           <div className="relative flex-1 w-full">
             <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
+            <AirportAutocomplete
               className="w-full rounded-xl border px-3 py-2 pl-9"
               name="from"
               value={form.from}
               onChange={handleChange}
-              placeholder={t('from')}
-              required
+              placeholder={`${t('from')} (TLV)`}
             />
           </div>
           <div className="relative flex-1 w-full">
             <FlightIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
+            <AirportAutocomplete
               className="w-full rounded-xl border px-3 py-2 pl-9"
               name="to"
               value={form.to}
               onChange={handleChange}
-              placeholder={t('to')}
-              required
+              placeholder={`${t('to')} (LHR)`}
             />
           </div>
           <div className="relative w-full">

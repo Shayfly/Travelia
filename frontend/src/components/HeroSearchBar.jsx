@@ -3,6 +3,7 @@ import useTranslation from '../hooks/useTranslation';
 import FlightIcon from './FlightIcon';
 import CalendarIcon from './CalendarIcon';
 import UserIcon from './UserIcon';
+import AirportAutocomplete from './AirportAutocomplete';
 
 export default function HeroSearchBar({ onSearch }) {
   const t = useTranslation();
@@ -29,7 +30,7 @@ export default function HeroSearchBar({ onSearch }) {
       <div className="flex flex-col md:flex-row gap-3 p-4 rounded-2xl bg-white shadow items-center rtl:md:flex-row-reverse">
         <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
           <FlightIcon className="w-5 h-5 text-blue-500" />
-          <input
+          <AirportAutocomplete
             name="from"
             value={form.from}
             onChange={handleChange}
@@ -39,7 +40,7 @@ export default function HeroSearchBar({ onSearch }) {
         </div>
         <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
           <FlightIcon className="w-5 h-5 text-blue-500" />
-          <input
+          <AirportAutocomplete
             name="to"
             value={form.to}
             onChange={handleChange}
