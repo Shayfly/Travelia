@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
-import MainSearchBar from '../components/MainSearchBar';
+import HeroSearchBar from '../components/HeroSearchBar';
+import logo from '../assets/Travelia_Logo.png';
 import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
@@ -67,8 +68,15 @@ export default function Home() {
     <>
       <SEO title="Travelia" description="Search flights and hotels" />
       <div className="p-4 space-y-6">
-        <h2 className="text-2xl font-bold text-center">Travelia</h2>
-      <MainSearchBar onSearch={handleSearch} />
+        <div className="flex justify-center mt-8">
+          <img
+            src={logo}
+            alt="Travelia Logo"
+            className="h-24 md:h-32 w-auto drop-shadow-lg"
+          />
+        </div>
+
+        <HeroSearchBar onSearch={handleSearch} />
       <a
         href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
         target="_blank"
