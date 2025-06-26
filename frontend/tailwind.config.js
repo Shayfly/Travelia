@@ -6,6 +6,13 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', 'Poppins', 'Heebo', 'Rubik', 'sans-serif'],
       },
+      colors: {
+        primary: {
+          light: '#3b82f6',
+          DEFAULT: '#2563eb',
+          dark: '#1e40af',
+        },
+      },
     },
   },
   plugins: [],

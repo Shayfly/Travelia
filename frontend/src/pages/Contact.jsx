@@ -33,7 +33,7 @@ export default function Contact() {
           <input className="border p-2 w-full" name="name" onChange={handleChange} placeholder={t('name')} required />
           <input className="border p-2 w-full" name="email" type="email" onChange={handleChange} placeholder={t('email')} required />
           <textarea className="border p-2 w-full" name="message" onChange={handleChange} placeholder={t('message')} required />
-          <button className="bg-blue-600 text-white px-4 py-2" type="submit">{t('send')}</button>
+          <button className="bg-primary text-white px-4 py-2" type="submit">{t('send')}</button>
           {error && <p className="text-red-600">{error}</p>}
         </form>
       )}
