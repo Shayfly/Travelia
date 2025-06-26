@@ -4,10 +4,8 @@ import { fetchHotels } from '../api/hotels';
 import { DealsContext } from '../contexts/DealsContext';
 import { LanguageContext } from '../contexts/LanguageContext';
 import SEO from '../components/SEO';
+import HeroSearchBar from '../components/HeroSearchBar';
 import HotelIcon from '../components/HotelIcon';
-import CalendarIcon from '../components/CalendarIcon';
-import UserIcon from '../components/UserIcon';
-import CityAutocomplete from '../components/CityAutocomplete';
 import { formatPrice } from '../utils/formatPrice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { mapToCity } from '../utils/cityMap';
@@ -16,21 +14,18 @@ export default function Hotels() {
   const t = useTranslation();
   const { addDeal } = useContext(DealsContext);
   const { language } = useContext(LanguageContext);
-  const [form, setForm] = useState({ city: '', check_in: '', check_out: '', guests: 1, rooms: 1 });
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const search = async () => {
+  const search = async ({ data }) => {
     try {
       setLoading(true);
       setError('');
       setResults([]);
       const params = {
-        ...form,
-        city: mapToCity(form.city),
+        ...data,
+        city: mapToCity(data.city),
         currency: language === 'he' ? 'ILS' : 'USD',
         locale: language,
       };
@@ -53,94 +48,9 @@ export default function Hotels() {
   return (
     <>
       <SEO title={t('hotels')} description="Search hotels" />
-      <div className="space-y-4 overflow-x-hidden">
+      <div className="space-y-4 overflow-hidden max-w-screen md:max-w-7xl mx-auto">
         <h2 className="text-xl font-bold">{t('hotels')}</h2>
-      <form onSubmit={(e) => { e.preventDefault(); search(); }}>
-        <div className="flex flex-col md:flex-row flex-wrap gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-full md:max-w-3xl mx-auto">
-          <div className="w-full md:flex-1">
-            <label className="block text-sm font-medium text-gray-700">{t('hotel_city')}</label>
-            <div className="relative">
-              <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <CityAutocomplete
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                placeholder={`${t('hotel_city')} (Paris)`}
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700">
-              {t('check_in')}
-            </label>
-            <div className="relative">
-              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="date"
-                name="check_in"
-                min={new Date().toISOString().split('T')[0]}
-                value={form.check_in}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700">
-              {t('check_out')}
-            </label>
-            <div className="relative">
-              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="date"
-                name="check_out"
-                min={form.check_in}
-                value={form.check_out}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="w-full md:w-24">
-            <label className="block text-sm font-medium text-gray-700">{t('guests')}</label>
-            <div className="relative">
-              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="number"
-                name="guests"
-                min="1"
-                value={form.guests}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="w-full md:w-24">
-            <label className="block text-sm font-medium text-gray-700">{t('rooms')}</label>
-            <div className="relative">
-              <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                className="w-full rounded-xl border px-3 py-2 pl-9"
-                type="number"
-                name="rooms"
-                min="1"
-                value={form.rooms}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
-            disabled={loading}
-          >
-            {loading ? t('searching') || 'Searching...' : t('search')}
-          </button>
-        </div>
-      </form>
+        <HeroSearchBar type="hotel" showTripType={false} onSearch={search} />
       <a
         href="https://www.trip.com/?Allianceid=6645150&SID=227505580&trip_sub1=&trip_sub3=D4181669"
         target="_blank"
