@@ -72,8 +72,8 @@ export default function Header() {
           className="text-black p-1 rounded mt-2 md:mt-0"
           aria-label={t('language')}
         >
-          <option value="en">EN</option>
-          <option value="he">HE</option>
+          <option value="he">🇮🇱 עברית</option>
+          <option value="en">🇬🇧 English</option>
         </select>
       </div>
     </header>

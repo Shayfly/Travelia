@@ -46,5 +46,8 @@
   "trip_type": "Trip Type",
   "round_trip": "Round-trip",
   "one_way": "One-way",
-  "swap": "Swap"
+  "swap": "Swap",
+  "from_placeholder": "e.g., Tel Aviv (TLV)",
+  "to_placeholder": "e.g., London (LHR)",
+  "return_placeholder": "Select return date"
 }

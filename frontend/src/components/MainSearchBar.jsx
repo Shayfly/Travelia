@@ -6,6 +6,7 @@ import HotelIcon from './HotelIcon';
 import CalendarIcon from './CalendarIcon';
 import SwapIcon from './SwapIcon';
 import UserIcon from './UserIcon';
+import SearchIcon from './SearchIcon';
 import useTranslation from '../hooks/useTranslation';
 
 export default function MainSearchBar({ onSearch }) {
@@ -53,12 +54,12 @@ export default function MainSearchBar({ onSearch }) {
 
   return (
     <form onSubmit={submit} className="max-w-5xl mx-auto mt-4" dir="auto">
-      <div className="bg-white shadow rounded-2xl p-4 flex flex-col gap-3">
+      <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out">
         <div className="flex justify-center gap-4">
           <button
             type="button"
             onClick={() => setActiveTab('flights')}
-            className={`px-4 py-1 rounded-full font-medium transition ${
+            className={`px-4 py-1 rounded-full font-medium transition-all duration-300 ease-in-out ${
               activeTab === 'flights' ? 'bg-blue-600 text-white' : 'bg-gray-100'
             }`}
           >
@@ -67,7 +68,7 @@ export default function MainSearchBar({ onSearch }) {
           <button
             type="button"
             onClick={() => setActiveTab('hotels')}
-            className={`px-4 py-1 rounded-full font-medium transition ${
+            className={`px-4 py-1 rounded-full font-medium transition-all duration-300 ease-in-out ${
               activeTab === 'hotels' ? 'bg-blue-600 text-white' : 'bg-gray-100'
             }`}
           >
@@ -82,14 +83,14 @@ export default function MainSearchBar({ onSearch }) {
                 name="from"
                 value={flightForm.from}
                 onChange={handleFlightChange}
-                placeholder={`${t('from')} (TLV)`}
+                placeholder={t('from_placeholder')}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
             <button
               type="button"
               onClick={swapLocations}
-              className="p-2 rounded-full border hover:bg-gray-100"
+              className="p-2 rounded-full border hover:bg-gray-100 transition-all duration-300 ease-in-out"
               aria-label={t('swap')}
             >
               <SwapIcon className="w-5 h-5 text-gray-600" />
@@ -100,7 +101,7 @@ export default function MainSearchBar({ onSearch }) {
                 name="to"
                 value={flightForm.to}
                 onChange={handleFlightChange}
-                placeholder={`${t('to')} (LHR)`}
+                placeholder={t('to_placeholder')}
                 className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
@@ -122,6 +123,7 @@ export default function MainSearchBar({ onSearch }) {
                   name="return"
                   value={flightForm.return}
                   onChange={handleFlightChange}
+                  placeholder={t('return_placeholder')}
                   className="rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
                 />
               </div>
@@ -138,9 +140,10 @@ export default function MainSearchBar({ onSearch }) {
               />
             </div>
             <button
-              className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
+              className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
               type="submit"
             >
+              <SearchIcon className="w-5 h-5" />
               {t('search')}
             </button>
           </div>
@@ -200,9 +203,10 @@ export default function MainSearchBar({ onSearch }) {
               />
             </div>
             <button
-              className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto"
+              className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
               type="submit"
             >
+              <SearchIcon className="w-5 h-5" />
               {t('search')}
             </button>
           </div>
