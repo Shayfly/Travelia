@@ -1,0 +1,22 @@
+[
+  {"city": "Tel Aviv", "country": "Israel", "hebrew_city": "תל אביב"},
+  {"city": "Jerusalem", "country": "Israel", "hebrew_city": "ירושלים"},
+  {"city": "London", "country": "United Kingdom", "hebrew_city": "לונדון"},
+  {"city": "Paris", "country": "France", "hebrew_city": "פריז"},
+  {"city": "New York", "country": "USA", "hebrew_city": "ניו יורק"},
+  {"city": "Los Angeles", "country": "USA", "hebrew_city": "לוס אנג'לס"},
+  {"city": "Rome", "country": "Italy", "hebrew_city": "רומא"},
+  {"city": "Berlin", "country": "Germany", "hebrew_city": "ברלין"},
+  {"city": "Tokyo", "country": "Japan", "hebrew_city": "טוקיו"},
+  {"city": "Bangkok", "country": "Thailand", "hebrew_city": "בנגקוק"},
+  {"city": "Barcelona", "country": "Spain", "hebrew_city": "ברצלונה"},
+  {"city": "Madrid", "country": "Spain", "hebrew_city": "מדריד"},
+  {"city": "Moscow", "country": "Russia", "hebrew_city": "מוסקבה"},
+  {"city": "Beijing", "country": "China", "hebrew_city": "בייג׳ינג"},
+  {"city": "Sydney", "country": "Australia", "hebrew_city": "סידני"},
+  {"city": "Toronto", "country": "Canada", "hebrew_city": "טורונטו"},
+  {"city": "Buenos Aires", "country": "Argentina", "hebrew_city": "בואנוס איירס"},
+  {"city": "Mexico City", "country": "Mexico", "hebrew_city": "מקסיקו סיטי"},
+  {"city": "Cape Town", "country": "South Africa", "hebrew_city": "קייפטאון"},
+  {"city": "Dubai", "country": "UAE", "hebrew_city": "דובאי"}
+]
