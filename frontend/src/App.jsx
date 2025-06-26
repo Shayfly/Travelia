@@ -24,11 +24,13 @@ export default function App() {
 
 function InnerApp() {
   const { language } = useContext(LanguageContext);
+  const isRTL = language === 'he';
+
   return (
     <Router>
-      <div className="flex flex-col min-h-screen" dir={language === 'he' ? 'rtl' : 'ltr'}>
+      <div className={`flex flex-col min-h-screen ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
         <Header />
-        <main className="flex-1 p-4">
+        <main className="flex-1 px-4 py-6 max-w-screen-xl mx-auto w-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/flights" element={<Flights />} />
