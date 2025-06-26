@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
+import TraveliaLogo from '../assets/Travelia_Logo.png';
 
 export default function Header() {
   const { language, setLanguage } = useContext(LanguageContext);
@@ -25,7 +26,10 @@ export default function Header() {
         className={`container mx-auto flex flex-wrap items-center justify-between p-4 ${isRTL ? 'md:flex-row-reverse' : ''}`}
       >
         <div className="flex items-center gap-2">
-          <h1 className="text-xl font-bold">Travelia</h1>
+          <img src={TraveliaLogo} alt="Travelia logo" className="h-8 w-8" />
+          <h1 className="text-xl font-bold whitespace-nowrap">
+            טראווליה — הדרך הקלה והחכמה לטיסות ולחופשות
+          </h1>
           <button
             className="md:hidden"
             onClick={toggleMenu}
