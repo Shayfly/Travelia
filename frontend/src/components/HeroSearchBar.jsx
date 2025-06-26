@@ -58,10 +58,10 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
   };
 
   return (
-    <form onSubmit={submit} className="max-w-3xl mx-auto mt-4">
-      <div className="flex flex-col md:flex-row gap-3 p-4 rounded-2xl bg-white shadow items-center rtl:md:flex-row-reverse">
+    <form onSubmit={submit} className="max-w-screen md:max-w-7xl mx-auto mt-4 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-3 p-4 rounded-2xl bg-white shadow items-end">
         {type === 'flight' && showTripType && (
-          <div className="flex gap-2 rtl:flex-row-reverse items-center">
+          <div className="flex gap-2 items-center col-span-full rtl:flex-row-reverse">
             <span className="font-semibold whitespace-nowrap">{t('trip_type')}</span>
             <button
               type="button"
@@ -82,119 +82,122 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
 
         {type === 'flight' ? (
           <>
-            <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
-              <FlightIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <FlightIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <AirportAutocomplete
                 name="from"
                 value={flightForm.from}
                 onChange={handleFlightChange}
                 placeholder={t('from_placeholder')}
-                className="flex-1 rounded-xl border px-3 py-2"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
             <button
               type="button"
               onClick={swapLocations}
-              className="p-2 rounded-full border hover:bg-gray-100"
+              className="p-2 rounded-full border hover:bg-gray-100 transition-all"
               aria-label={t('swap')}
             >
               <SwapIcon className="w-5 h-5 text-gray-600" />
             </button>
-            <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
-              <FlightIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <FlightIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <AirportAutocomplete
                 name="to"
                 value={flightForm.to}
                 onChange={handleFlightChange}
                 placeholder={t('to_placeholder')}
-                className="flex-1 rounded-xl border px-3 py-2"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <CalendarIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <CalendarIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 name="depart"
+                min={new Date().toISOString().split('T')[0]}
                 value={flightForm.depart}
                 onChange={handleFlightChange}
-                className="rounded-xl border px-3 py-2"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <CalendarIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <CalendarIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 name="return"
+                min={flightForm.depart || new Date().toISOString().split('T')[0]}
                 value={flightForm.return}
                 onChange={handleFlightChange}
                 disabled={tripType === 'oneWay'}
-                className="rounded-xl border px-3 py-2 disabled:bg-gray-100"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9 disabled:bg-gray-100"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <UserIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <UserIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="number"
                 name="passengers"
                 min="1"
                 value={flightForm.passengers}
                 onChange={handleFlightChange}
-                className="w-20 rounded-xl border px-3 py-2"
+                className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
           </>
         ) : (
           <>
-            <div className="flex-1 flex items-center gap-2 rtl:flex-row-reverse">
-              <HotelIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
               <CityAutocomplete
                 name="city"
                 value={hotelForm.city}
                 onChange={handleHotelChange}
-                placeholder={t('hotel_city')}
-                className="flex-1 rounded-xl border px-3 py-2"
+                placeholder={`${t('hotel_city')} (Paris)`}
+                className="w-full rounded-xl border px-3 py-2"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <CalendarIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <CalendarIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 name="check_in"
+                min={new Date().toISOString().split('T')[0]}
                 value={hotelForm.check_in}
                 onChange={handleHotelChange}
-                className="rounded-xl border px-3 py-2"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <CalendarIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <CalendarIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 name="check_out"
+                min={hotelForm.check_in || new Date().toISOString().split('T')[0]}
                 value={hotelForm.check_out}
                 onChange={handleHotelChange}
-                className="rounded-xl border px-3 py-2"
+                className="w-full rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <UserIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <UserIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="number"
                 name="guests"
                 min="1"
                 value={hotelForm.guests}
                 onChange={handleHotelChange}
-                className="w-20 rounded-xl border px-3 py-2"
+                className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
-            <div className="flex items-center gap-2 rtl:flex-row-reverse">
-              <HotelIcon className="w-5 h-5 text-blue-500" />
+            <div className="flex items-center relative">
+              <UserIcon className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="number"
                 name="rooms"
                 min="1"
                 value={hotelForm.rooms}
                 onChange={handleHotelChange}
-                className="w-20 rounded-xl border px-3 py-2"
+                className="w-full md:w-20 rounded-xl border px-3 py-2 pl-9 rtl:pl-3 rtl:pr-9"
               />
             </div>
           </>

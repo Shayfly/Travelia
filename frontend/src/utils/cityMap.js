@@ -1,8 +1,8 @@
 import airports from '../data/airports.json';
 
 export const hebrewToCity = airports.reduce((acc, a) => {
-  acc[a.city_he] = a.city_en;
-  acc[a.city_en.toLowerCase()] = a.city_en;
+  acc[a.he] = a.en;
+  acc[a.en.toLowerCase()] = a.en;
   return acc;
 }, {});
 
