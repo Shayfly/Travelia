@@ -57,15 +57,18 @@ export default function Hotels() {
         <h2 className="text-xl font-bold">{t('hotels')}</h2>
       <form onSubmit={(e) => { e.preventDefault(); search(); }}>
         <div className="flex flex-col md:flex-row flex-wrap gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-full md:max-w-3xl mx-auto">
-          <div className="relative flex-1 w-full">
-            <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <CityAutocomplete
-              className="w-full rounded-xl border px-3 py-2 pl-9"
-              name="city"
-              value={form.city}
-              onChange={handleChange}
-              placeholder={`${t('hotel_city')} (Paris)`}
-            />
+          <div className="w-full md:flex-1">
+            <label className="block text-sm font-medium text-gray-700">{t('hotel_city')}</label>
+            <div className="relative">
+              <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <CityAutocomplete
+                className="w-full rounded-xl border px-3 py-2 pl-9"
+                name="city"
+                value={form.city}
+                onChange={handleChange}
+                placeholder={`${t('hotel_city')} (Paris)`}
+              />
+            </div>
           </div>
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700">
@@ -101,27 +104,33 @@ export default function Hotels() {
               />
             </div>
           </div>
-          <div className="relative w-full md:w-24">
-            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              className="w-full rounded-xl border px-3 py-2 pl-9"
-              type="number"
-              name="guests"
-              min="1"
-              value={form.guests}
-              onChange={handleChange}
-            />
+          <div className="w-full md:w-24">
+            <label className="block text-sm font-medium text-gray-700">{t('guests')}</label>
+            <div className="relative">
+              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input
+                className="w-full rounded-xl border px-3 py-2 pl-9"
+                type="number"
+                name="guests"
+                min="1"
+                value={form.guests}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <div className="relative w-full md:w-24">
-            <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              className="w-full rounded-xl border px-3 py-2 pl-9"
-              type="number"
-              name="rooms"
-              min="1"
-              value={form.rooms}
-              onChange={handleChange}
-            />
+          <div className="w-full md:w-24">
+            <label className="block text-sm font-medium text-gray-700">{t('rooms')}</label>
+            <div className="relative">
+              <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input
+                className="w-full rounded-xl border px-3 py-2 pl-9"
+                type="number"
+                name="rooms"
+                min="1"
+                value={form.rooms}
+                onChange={handleChange}
+              />
+            </div>
           </div>
           <button
             type="submit"
