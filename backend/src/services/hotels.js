@@ -24,7 +24,13 @@ export async function getHotels(params) {
   const { data } = await axios.get(
     'https://api.travelpayouts.com/v1/prices/hotel-offers',
     {
-      params: { ...params, marker: MARKER, token: API_TOKEN },
+      params: {
+        currency: 'USD',
+        locale: 'en-US',
+        ...params,
+        marker: MARKER,
+        token: API_TOKEN,
+      },
     },
   );
   return data;

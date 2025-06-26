@@ -25,7 +25,13 @@ export async function getFlights(params) {
   const { data } = await axios.get(
     'https://api.travelpayouts.com/v1/prices/monthly',
     {
-      params: { ...params, marker: MARKER, token: API_TOKEN },
+      params: {
+        currency: 'USD',
+        locale: 'en-US',
+        ...params,
+        marker: MARKER,
+        token: API_TOKEN,
+      },
     },
   );
   return data;
@@ -35,7 +41,13 @@ export async function searchFlights(params) {
   const { data } = await axios.get(
     'https://api.travelpayouts.com/aviasales/v3/prices_for_dates',
     {
-      params: { ...params, marker: MARKER, token: API_TOKEN },
+      params: {
+        currency: 'USD',
+        locale: 'en-US',
+        ...params,
+        marker: MARKER,
+        token: API_TOKEN,
+      },
     },
   );
   return data;

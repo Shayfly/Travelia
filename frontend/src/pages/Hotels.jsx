@@ -7,6 +7,7 @@ import HotelIcon from '../components/HotelIcon';
 import CalendarIcon from '../components/CalendarIcon';
 import UserIcon from '../components/UserIcon';
 import CityAutocomplete from '../components/CityAutocomplete';
+import { formatPrice } from '../utils/formatPrice';
 
 export default function Hotels() {
   const t = useTranslation();
@@ -124,8 +125,13 @@ export default function Hotels() {
       {error && <p className="text-red-600">{error}</p>}
       <ul className="space-y-2">
         {results.map((h, i) => (
-          <li key={i} className="border p-2 flex justify-between items-center">
-            <span>{h.name} - {h.price}</span>
+          <li key={i} className="border p-2 flex justify-between items-center gap-4">
+            {h.photo && (
+              <img src={h.photo} alt={h.name} className="w-24 h-16 object-cover rounded" />
+            )}
+            <span className="flex-1">
+              {h.name} - {formatPrice(h.price || h.price_from)}
+            </span>
             <button className="bg-green-600 text-white px-2" onClick={() => addDeal(null, h)}>{t('add_deal')}</button>
           </li>
         ))}
