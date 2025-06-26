@@ -53,10 +53,10 @@ export default function Hotels() {
   return (
     <>
       <SEO title={t('hotels')} description="Search hotels" />
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-x-hidden">
         <h2 className="text-xl font-bold">{t('hotels')}</h2>
       <form onSubmit={(e) => { e.preventDefault(); search(); }}>
-        <div className="flex flex-col md:flex-row gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-3xl mx-auto">
+        <div className="flex flex-col md:flex-row flex-wrap gap-3 p-4 bg-white shadow rounded-2xl items-center max-w-full md:max-w-3xl mx-auto">
           <div className="relative flex-1 w-full">
             <HotelIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             <CityAutocomplete
@@ -67,27 +67,39 @@ export default function Hotels() {
               placeholder={`${t('hotel_city')} (Paris)`}
             />
           </div>
-          <div className="relative w-full">
-            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              className="w-full rounded-xl border px-3 py-2 pl-9"
-              type="date"
-              name="check_in"
-              value={form.check_in}
-              onChange={handleChange}
-              required
-            />
+          <div className="w-full">
+            <label className="block text-sm font-medium text-gray-700">
+              {t('check_in')}
+            </label>
+            <div className="relative">
+              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input
+                className="w-full rounded-xl border px-3 py-2 pl-9"
+                type="date"
+                name="check_in"
+                min={new Date().toISOString().split('T')[0]}
+                value={form.check_in}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-          <div className="relative w-full">
-            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-            <input
-              className="w-full rounded-xl border px-3 py-2 pl-9"
-              type="date"
-              name="check_out"
-              value={form.check_out}
-              onChange={handleChange}
-              required
-            />
+          <div className="w-full">
+            <label className="block text-sm font-medium text-gray-700">
+              {t('check_out')}
+            </label>
+            <div className="relative">
+              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input
+                className="w-full rounded-xl border px-3 py-2 pl-9"
+                type="date"
+                name="check_out"
+                min={form.check_in}
+                value={form.check_out}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="relative w-full md:w-24">
             <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
