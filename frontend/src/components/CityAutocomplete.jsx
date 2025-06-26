@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
-import cities from '../assets/cities.json';
+import { useState, useEffect, useRef, useContext } from 'react';
 import useTranslation from '../hooks/useTranslation';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 export default function CityAutocomplete({ name, value, onChange, placeholder, className = 'w-full rounded-xl border px-3 py-2' }) {
   const t = useTranslation();
+  const { language } = useContext(LanguageContext);
   const [query, setQuery] = useState(value || '');
   const [results, setResults] = useState([]);
   const [active, setActive] = useState(-1);
@@ -15,21 +16,31 @@ export default function CityAutocomplete({ name, value, onChange, placeholder, c
   }, [value]);
 
   useEffect(() => {
+    let ignore = false;
     if (query && query.length >= 2) {
-      const lower = query.toLowerCase();
-      const filtered = cities.filter(c =>
-        c.city.toLowerCase().includes(lower) ||
-        (c.hebrew_city && c.hebrew_city.includes(query)) ||
-        (c.country && c.country.toLowerCase().includes(lower))
-      ).slice(0, 10);
-      setResults(filtered);
-      setOpen(true);
+      const url = `https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(query)}&locale=${language}&types[]=city&types[]=hotel`;
+      fetch(url)
+        .then((r) => r.json())
+        .then((data) => {
+          if (ignore) return;
+          setResults(Array.isArray(data) ? data.slice(0, 10) : []);
+          setOpen(true);
+        })
+        .catch(() => {
+          if (!ignore) setResults([]);
+        })
+        .finally(() => {
+          if (!ignore) setActive(-1);
+        });
     } else {
       setResults([]);
       setOpen(false);
+      setActive(-1);
     }
-    setActive(-1);
-  }, [query]);
+    return () => {
+      ignore = true;
+    };
+  }, [query, language]);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -47,7 +58,7 @@ export default function CityAutocomplete({ name, value, onChange, placeholder, c
   };
 
   const select = (city) => {
-    const val = city.city;
+    const val = city.name || city.city;
     setQuery(val);
     setOpen(false);
     onChange && onChange({ target: { name, value: val } });
@@ -89,7 +100,8 @@ export default function CityAutocomplete({ name, value, onChange, placeholder, c
               onClick={() => select(c)}
               className={`p-2 cursor-pointer hover:bg-blue-50 ${idx === active ? 'bg-blue-100' : ''}`}
             >
-              <span className="font-semibold">{c.city}</span>{c.country ? `, ${c.country}` : ''}
+              <span className="font-semibold">{c.name || c.city}</span>
+              {c.country_name || c.country ? `, ${c.country_name || c.country}` : ''}
             </li>
           ))}
         </ul>

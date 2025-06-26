@@ -18,20 +18,37 @@ Sample Travelpayouts hotel response:
 
 const API_TOKEN = process.env.TRAVELPAYOUTS_API_KEY ||
   '8349af28ce9d95c3ee1635cc7729cc09';
-const MARKER = process.env.TRAVELPAYOUTS_MARKER || '640704';
+const PARTNER_ID = process.env.TRAVELPAYOUTS_MARKER || '640704';
 
 export async function getHotels(params) {
+  const {
+    city,
+    check_in,
+    check_out,
+    guests = 1,
+    rooms = 1,
+    currency = 'USD',
+    locale = 'en',
+    limit = 20,
+  } = params;
+
   const { data } = await axios.get(
-    'https://api.travelpayouts.com/v1/prices/hotel-offers',
+    'https://engine.hotellook.com/api/v2/cache.json',
     {
       params: {
-        currency: 'USD',
-        locale: 'en-US',
-        ...params,
-        marker: MARKER,
+        location: city,
+        checkIn: check_in,
+        checkOut: check_out,
+        adults: guests,
+        rooms,
+        currency,
+        language: locale,
+        limit,
+        partnerId: PARTNER_ID,
         token: API_TOKEN,
       },
     },
   );
+
   return data;
 }
