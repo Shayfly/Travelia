@@ -1,23 +1,9 @@
 #!/bin/bash
 
-echo "🔍 Checking Node.js version..."
-if ! command -v node &> /dev/null; then
-  echo "❌ Node.js is not installed."
-  exit 1
-fi
+# Simple setup script for Codex environment
+set -e
 
-echo "📦 Installing dependencies..."
+cd frontend
 npm install
-if [ $? -ne 0 ]; then
-  echo "❌ npm install failed."
-  exit 1
-fi
-
-echo "🏗️ Building the project..."
-npm run build
-if [ $? -ne 0 ]; then
-  echo "❌ Build failed."
-  exit 1
-fi
-
-echo "✅ Setup completed successfully!"
+cd ../backend
+npm install
