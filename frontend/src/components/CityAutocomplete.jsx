@@ -87,8 +87,21 @@ export default function CityAutocomplete({ name, value, onChange, placeholder, c
         onChange={onInputChange}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        className={className}
+        className={`${className} transition-all duration-300 ease-in-out focus:ring focus:ring-blue-200 pr-7`}
       />
+      {query && (
+        <button
+          type="button"
+          onClick={() => {
+            setQuery('');
+            onChange && onChange({ target: { name, value: '' } });
+          }}
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          aria-label="clear"
+        >
+          ×
+        </button>
+      )}
       {open && (
         <ul className="absolute z-10 w-full bg-white border rounded shadow mt-1 max-h-60 overflow-auto rtl:right-0 rtl:text-right">
           {results.length === 0 && (

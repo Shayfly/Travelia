@@ -4,6 +4,7 @@ import FlightIcon from './FlightIcon';
 import CalendarIcon from './CalendarIcon';
 import UserIcon from './UserIcon';
 import SwapIcon from './SwapIcon';
+import SearchIcon from './SearchIcon';
 import AirportAutocomplete from './AirportAutocomplete';
 
 export default function HeroSearchBar({ onSearch }) {
@@ -64,7 +65,7 @@ export default function HeroSearchBar({ onSearch }) {
             name="from"
             value={form.from}
             onChange={handleChange}
-            placeholder={`${t('from')} (TLV)`}
+            placeholder={t('from_placeholder')}
             className="flex-1 rounded-xl border px-3 py-2"
           />
         </div>
@@ -82,7 +83,7 @@ export default function HeroSearchBar({ onSearch }) {
             name="to"
             value={form.to}
             onChange={handleChange}
-            placeholder={`${t('to')} (LHR)`}
+            placeholder={t('to_placeholder')}
             className="flex-1 rounded-xl border px-3 py-2"
           />
         </div>
@@ -118,7 +119,11 @@ export default function HeroSearchBar({ onSearch }) {
             className="w-20 rounded-xl border px-3 py-2"
           />
         </div>
-        <button className="bg-blue-600 text-white font-bold rounded-xl px-6 py-2 hover:bg-blue-700 transition w-full md:w-auto" type="submit">
+        <button
+          className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-xl hover:from-blue-600 text-white font-bold rounded-xl px-6 py-2 flex items-center gap-2 transition-all duration-300 ease-in-out w-full md:w-auto"
+          type="submit"
+        >
+          <SearchIcon className="w-5 h-5" />
           {t('search')}
         </button>
       </div>

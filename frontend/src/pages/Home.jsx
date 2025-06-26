@@ -7,6 +7,7 @@ import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
 import SEO from '../components/SEO';
 import { mapToIata } from '../utils/iataMap';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Home() {
   const t = useTranslation();
@@ -95,7 +96,11 @@ export default function Home() {
         title="Trip.com Ad"
         className="mx-auto my-4"
       ></iframe>
-      {loading && <p>{t('searching') || 'Searching...'}</p>}
+      {loading && (
+        <div className="flex justify-center my-4">
+          <LoadingSpinner />
+        </div>
+      )}
       {error && <p className="text-red-600">{error}</p>}
       {type === 'flight' && results.length > 0 && (
         <ul className="space-y-4">
