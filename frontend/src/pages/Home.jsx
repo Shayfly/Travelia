@@ -71,15 +71,19 @@ export default function Home() {
     <>
       <SEO title="Travelia" description="Search flights and hotels" />
       <div className="space-y-6 max-w-screen-xl mx-auto px-4">
-        <div
-          className="h-48 sm:h-72 w-full bg-center bg-cover rounded-lg flex items-center justify-center mt-8"
-          style={{ backgroundImage: `url(${homeBg})` }}
-        >
+        <div className="relative mt-8 h-48 sm:h-72 w-full rounded-lg overflow-hidden">
           <img
-            src={logo}
-            alt="Travelia Logo"
-            className="h-24 md:h-32 w-auto drop-shadow-lg"
+            src={homeBg}
+            alt="בריכה ודקלים"
+            className="absolute inset-0 w-full h-full object-cover"
           />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={logo}
+              alt="Travelia Logo"
+              className="h-24 md:h-32 w-auto drop-shadow-lg"
+            />
+          </div>
         </div>
 
         <HeroSearchBar onSearch={handleSearch} />
