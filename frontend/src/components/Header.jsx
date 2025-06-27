@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
 
-// ודא שקובץ Travelia_Logo.png קיים בתיקייה public/assets
 const TraveliaLogo = '/assets/Travelia_Logo.png';
 
 export default function Header() {
@@ -29,35 +28,30 @@ export default function Header() {
   return (
     <header className="bg-primary text-white shadow">
       <div
-        className={`container mx-auto flex flex-wrap items-center justify-between p-4 ${
+        className={`max-w-screen-xl mx-auto px-4 flex flex-wrap items-center justify-between p-4 ${
           isRTL ? 'md:flex-row-reverse' : ''
         }`}
       >
-        {/* לוגו וסלוגן */}
+        {/* Logo and slogan */}
         <div className="flex items-center gap-3">
           <img src={TraveliaLogo} alt="Travelia logo" className="h-10 w-10" />
-          <h1 className="text-sm md:text-base font-bold whitespace-nowrap">
+          <p className="text-sm md:text-base font-bold whitespace-nowrap">
             {slogans[language]}
-          </h1>
+          </p>
         </div>
 
-        {/* תפריט נייד */}
+        {/* Mobile menu toggle */}
         <button
           className="md:hidden ml-auto text-white"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        {/* ניווט */}
+        {/* Navigation */}
         <nav
           className={`${
             menuOpen ? 'flex' : 'hidden'
@@ -66,8 +60,27 @@ export default function Header() {
           } md:items-center`}
         >
           {pages.map((p) => (
-            <Link
+            <NavLink
               key={p.path}
               to={p.path}
               onClick={() => setMenuOpen(false)}
-              className="px-3 py-1 hover:u
+              className={({ isActive }) =>
+                `px-3 py-1 hover:underline ${isActive ? 'font-semibold' : ''}`
+              }
+            >
+              {t(p.name)}
+            </NavLink>
+          ))}
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="ml-2 text-black rounded px-2 py-1"
+          >
+            <option value="en">EN</option>
+            <option value="he">HE</option>
+          </select>
+        </nav>
+      </div>
+    </header>
+  );
+}

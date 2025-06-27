@@ -24,7 +24,7 @@ export default function Contact() {
   return (
     <>
       <SEO title={t('contact')} description="Contact Travelia" />
-      <div className="space-y-4 max-w-md mx-auto">
+      <div className="space-y-4 max-w-md mx-auto px-4">
       <h2 className="text-xl font-bold">{t('contact')}</h2>
       {sent ? (
         <p className="text-green-600">{t('message')}</p>

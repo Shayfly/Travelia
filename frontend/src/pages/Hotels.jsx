@@ -51,7 +51,7 @@ export default function Hotels() {
   return (
     <>
       <SEO title={t('hotels')} description="Search hotels" />
-      <div className="space-y-4 overflow-hidden max-w-screen md:max-w-7xl mx-auto">
+      <div className="space-y-4 overflow-hidden max-w-screen-xl mx-auto px-4">
         <h2 className="text-xl font-bold">{t('hotels')}</h2>
 
         <HeroSearchBar type="hotel" showTripType={false} onSearch={search} />
