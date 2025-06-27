@@ -3,6 +3,7 @@ import useTranslation from '../hooks/useTranslation';
 import HeroSearchBar from '../components/HeroSearchBar';
 // Logo image lives under /assets when provided
 const logo = '/assets/Travelia_Logo.png';
+const homeBg = '/assets/images/home-bg.jpg';
 import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
 import { fetchHotels } from '../api/hotels';
@@ -70,7 +71,10 @@ export default function Home() {
     <>
       <SEO title="Travelia" description="Search flights and hotels" />
       <div className="space-y-6 max-w-screen-xl mx-auto px-4">
-        <div className="flex justify-center mt-8">
+        <div
+          className="h-48 sm:h-72 w-full bg-center bg-cover rounded-lg flex items-center justify-center mt-8"
+          style={{ backgroundImage: `url(${homeBg})` }}
+        >
           <img
             src={logo}
             alt="Travelia Logo"

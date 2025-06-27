@@ -10,6 +10,8 @@ import { formatPrice } from '../utils/formatPrice';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { mapToCity } from '../utils/cityMap';
 
+const hotelBg = '/assets/images/hotel.jpg';
+
 export default function Hotels() {
   const t = useTranslation();
   const { addDeal } = useContext(DealsContext);
@@ -52,6 +54,10 @@ export default function Hotels() {
     <>
       <SEO title={t('hotels')} description="Search hotels" />
       <div className="space-y-4 overflow-hidden max-w-screen-xl mx-auto px-4">
+        <div
+          className="h-48 sm:h-72 w-full bg-center bg-cover rounded-lg"
+          style={{ backgroundImage: `url(${hotelBg})` }}
+        />
         <h2 className="text-xl font-bold">{t('hotels')}</h2>
 
         <HeroSearchBar type="hotel" showTripType={false} onSearch={search} />
