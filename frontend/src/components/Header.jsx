@@ -4,8 +4,6 @@ import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
 import LanguageSelector from './LanguageSelector';
 
-const TraveliaLogo = '/assets/Travelia_Logo.png';
-
 export default function Header() {
   const { language } = useContext(LanguageContext);
   const t = useTranslation();
@@ -21,10 +19,6 @@ export default function Header() {
     { name: 'contact', path: '/contact' },
   ];
 
-  const slogans = {
-    he: 'טראווליה — הדרך הקלה והחכמה לטיסות ולחופשות',
-    en: 'Travelia — Your smart and easy flight & travel companion',
-  };
 
   return (
     <header className="bg-primary text-white shadow">
@@ -35,9 +29,9 @@ export default function Header() {
       >
         {/* Logo and slogan */}
         <div className="flex items-center gap-3">
-          <img src={TraveliaLogo} alt="Travelia logo" className="h-10 w-10" />
+          <img src="/assets/icons/logo.png" alt="Travelia Logo" className="h-10" />
           <p className="text-sm md:text-base font-bold whitespace-nowrap">
-            {slogans[language]}
+            טראווליה — הדרך הקלה והחכמה לטיסות ולחופשות
           </p>
         </div>
 
