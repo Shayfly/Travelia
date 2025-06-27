@@ -12,7 +12,7 @@ export default function Blog() {
   return (
     <>
       <SEO title="Blog" description="Travelia blog" />
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-screen-xl mx-auto px-4">
       <h2 className="text-xl font-bold">{t('blog_title')}</h2>
       {posts.map((p, i) => (
         <article key={i} className="border p-2">

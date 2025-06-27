@@ -58,7 +58,7 @@ export default function HeroSearchBar({ onSearch, type = 'flight', showTripType 
   };
 
   return (
-    <form onSubmit={submit} className="max-w-screen md:max-w-7xl mx-auto mt-4 overflow-hidden">
+    <form onSubmit={submit} className="max-w-screen-xl mx-auto mt-4 overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-6 gap-3 p-4 rounded-2xl bg-white shadow items-end">
         {type === 'flight' && showTripType && (
           <div className="flex gap-2 items-center col-span-full rtl:flex-row-reverse">

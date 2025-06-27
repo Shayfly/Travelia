@@ -67,7 +67,7 @@ export default function Flights() {
   return (
     <>
       <SEO title={t('flights')} description="Search flights" />
-      <div className="space-y-6 overflow-hidden max-w-screen md:max-w-7xl mx-auto">
+      <div className="space-y-6 overflow-hidden max-w-screen-xl mx-auto px-4">
         <h2 className="text-xl font-bold">{t('flights')}</h2>
 
         <HeroSearchBar type="flight" showTripType={true} onSearch={searchFlights} />

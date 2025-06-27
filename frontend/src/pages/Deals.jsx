@@ -9,7 +9,7 @@ export default function Deals() {
   return (
     <>
       <SEO title={t('deals')} description="Saved deals" />
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-screen-xl mx-auto px-4">
         <h2 className="text-xl font-bold">{t('deals_list')}</h2>
       <ul className="space-y-2">
         {deals.map((d, i) => (

@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <>
       <SEO title="Travelia" description="Search flights and hotels" />
-      <div className="p-4 space-y-6">
+      <div className="space-y-6 max-w-screen-xl mx-auto px-4">
         <div className="flex justify-center mt-8">
           <img
             src={logo}
