@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import useTranslation from '../hooks/useTranslation';
 import HeroSearchBar from '../components/HeroSearchBar';
-// Logo image lives under /assets when provided
-const logo = '/assets/Travelia_Logo.png';
+// Logo image now resides in /assets/icons
+const logo = '/assets/icons/logo.png';
 const homeBg = '/assets/images/home-bg.jpg';
 import HotelIcon from '../components/HotelIcon';
 import { fetchFlights } from '../api/flights';
