@@ -1,13 +1,12 @@
 # Travelia
 
-Travelia is a demo monorepo for searching flights, hotels and custom travel deals. It contains a React frontend built with Vite and Tailwind alongside an Express backend. Workflows are provided for deploying the frontend to **GitHub Pages** and the backend to **Vercel**.
+Travelia is a demo monorepo for searching flights, hotels and custom travel deals. It contains a React frontend built with Vite and Tailwind alongside an Express backend. The recommended deployment target is **Vercel**.
 
 ## Project Structure
 
 ```
 frontend/   React + Vite + Tailwind application
 backend/    Node.js + Express API server
-.github/    CI/CD workflow for GitHub Pages
 ```
 
 ## Installation and Local Development
@@ -48,10 +47,6 @@ The built files will appear in `frontend/dist` and can be served statically or d
 
 ## Deployment
 
-### GitHub Pages
-
-The workflow in `.github/workflows/deploy.yml` builds the frontend and publishes `frontend/dist` to GitHub Pages whenever changes are pushed to the `main` branch.
-
 ### Vercel
 
 The Express backend includes `vercel.json` so it can be deployed to Vercel. You can also deploy the static frontend using the `frontend` folder with build command `npm run build` and output directory `dist`.
@@ -64,14 +59,13 @@ Add your Travelpayouts API key and other secrets to the `.env` file. The backend
 
 # טרווליה
 
-פרויקט דמו לחיפוש טיסות, מלונות ודילים מותאמים אישית. המאגר כולל פרונטאנד React (Vite + Tailwind) ושרת Express. קיימים תהליכי פריסה ל־GitHub Pages ול־Vercel.
+פרויקט דמו לחיפוש טיסות, מלונות ודילים מותאמים אישית. המאגר כולל פרונטאנד React (Vite + Tailwind) ושרת Express. ניתן לפרוס את הפרויקט ל־Vercel.
 
 ## מבנה הקבצים
 
 ```
 frontend/   אפליקציית React
 backend/    שרת Express
-.github/    תהליך CI/CD ל־GitHub Pages
 ```
 
 ## התקנה והרצה מקומית
@@ -101,7 +95,7 @@ cd frontend && npm run build
 
 ## פריסה
 
-קובץ `.github/workflows/deploy.yml` בונה אוטומטית את הפרונטאנד ומעלה את `frontend/dist` ל־GitHub Pages בעת דחיפה ל־`main`. ניתן גם לפרוס את השרת ל־Vercel באמצעות הקובץ `vercel.json`.
+ניתן לפרוס את השרת ל־Vercel באמצעות הקובץ `vercel.json`.
 
 ## הוספת מפתחות API ותמונות
 

@@ -12,7 +12,7 @@ React + Vite + Tailwind application for searching flights, hotels and deals.
 - `npm run build` - build for production
 - `npm run preview` - preview production build
 
-Binary assets are not tracked in the repository. Place your images (e.g. `Travelia_Logo.png`, `logo.svg`, `demo-image.jpg`, `favicon.ico`) inside `public/assets` before building or deploying.
+Binary assets are not tracked in the repository. Place your images (e.g. `assets/icons/logo.png`, `demo-image.jpg`, `favicon.ico`) inside `public/assets` before building or deploying.
 
 The entry `index.html` lives in the `frontend` folder so it can be served
 correctly on GitHub Pages and Vercel.
