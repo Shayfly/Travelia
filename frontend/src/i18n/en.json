@@ -50,4 +50,15 @@
   "from_placeholder": "e.g., Tel Aviv (TLV)",
   "to_placeholder": "e.g., London (LHR)",
   "return_placeholder": "Select return date"
+  ,"passengers_class": "Passengers & Class"
+  ,"adults": "Adults"
+  ,"children": "Children (2\u201312)"
+  ,"infants": "Infants (0\u20132)"
+  ,"travel_class": "Class"
+  ,"economy": "Economy"
+  ,"premium_economy": "Premium Economy"
+  ,"business": "Business"
+  ,"first_class": "First"
+  ,"include_nearby": "Include nearby airports"
+  ,"direct_only": "Direct flights only"
 }
