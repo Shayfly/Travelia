@@ -2,11 +2,12 @@ import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LanguageContext } from '../contexts/LanguageContext';
 import useTranslation from '../hooks/useTranslation';
+import LanguageSelector from './LanguageSelector';
 
 const TraveliaLogo = '/assets/Travelia_Logo.png';
 
 export default function Header() {
-  const { language, setLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
   const t = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const isRTL = language === 'he';
@@ -71,14 +72,7 @@ export default function Header() {
               {t(p.name)}
             </NavLink>
           ))}
-          <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="ml-2 text-black rounded px-2 py-1"
-          >
-            <option value="en">EN</option>
-            <option value="he">HE</option>
-          </select>
+          <LanguageSelector className="ml-2" />
         </nav>
       </div>
     </header>

@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'Poppins', 'Heebo', 'Rubik', 'sans-serif'],
+        sans: ['"Secular One"', 'Inter', 'Poppins', 'Heebo', 'Rubik', 'sans-serif'],
+        secular: ['"Secular One"', 'sans-serif'],
       },
       colors: {
         primary: {
